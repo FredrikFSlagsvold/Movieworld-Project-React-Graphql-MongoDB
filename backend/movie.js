@@ -8,7 +8,8 @@ const {
 	GraphQLType,
 	GraphQLSchema,
 	GraphQLNonNull,
-	GraphQLObjectType
+	GraphQLObjectType,
+	GraphQLInt
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
@@ -20,13 +21,13 @@ mongoose
 	.then(() => console.log("Connected to database..."))
 	.catch(err => console.error(err));
 
-const UserModel = mongoose.model("movie", {
+const MovieModel = mongoose.model("movie", {
 	title: String,
 	type: String,
 });
 
-const UserType = new GraphQLObjectType({
-	name: "Users",
+const MovieType = new GraphQLObjectType({
+	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
 		title: { type: GraphQLString },
@@ -39,37 +40,46 @@ const schema = new GraphQLSchema({
 		name: "Query",
 		fields: {
 			// Query 1
-
 			// name of the query, people
-			Users: {
+			Movies: {
 				 // the type of response this query will return, here UserType
-				type: GraphQLList(UserType),
+				type: GraphQLList(MovieType),
 				// resolver is required
 				resolve: (root, args, context, info) => {
 					// we are returning all persons available in the table in mongodb
-					return UserModel.find().exec();
+					return MovieModel.find().exec();
 				}
 			},
 			// Query 2
 			peopleByID: {
 				// name of the query is people by id
-				type: UserType,
+				type: MovieType,
 				args: {
 					// strong validation for graphqlid, which is mendatory for running this query
 					id: { type: GraphQLNonNull(GraphQLID) }
 				},
 				resolve: (root, args, context, info) => {
-					return UserModel.findById(args.id).exec();
+					return MovieModel.findById(args.id).exec();
 				}
 			},
 			// Query 3
 			peopleByName: {
-				type: GraphQLList(UserType),
+				type: GraphQLList(MovieType),
 				args: { 
 					firstName: { type: GraphQLString } 
 				},
 				resolve: (root, args, context, info) => {
-					return UserModel.find({'firstName':args.firstName}).exec();
+					return MovieModel.find({'firstName':args.firstName}).exec();
+				}
+			},
+			moviesByLimit: {
+				type: GraphQLList(MovieType),
+				args: {
+					limit: { type: GraphQLInt},
+					skip: { type: GraphQLInt}
+				},
+				resolve: (root, args, context, info) => {
+					return MovieModel.find().skip(args.skip).limit(args.limit).exec()
 				}
 			}
 		}
@@ -79,14 +89,14 @@ const schema = new GraphQLSchema({
 	mutation: new GraphQLObjectType({
 		name: "Create",
 		fields: {
-			Users: {
-				type: UserType,
+			Movies: {
+				type: MovieType,
 				args: {
 					firstName: { type: GraphQLString },
 					lastName: { type: GraphQLString }
 				},
 				resolve: (root, args, context, info) => {
-					var people = new UserModel(args);
+					var people = new MovieModel(args);
 					return people.save();
 				}
 			}
@@ -94,8 +104,9 @@ const schema = new GraphQLSchema({
 	})
 });
 
-app.use("/user", ExpressGraphQL({schema, graphiql: true}));
+app.use("/movie", ExpressGraphQL({schema, graphiql: true}));
+
 
 app.listen(3001, () => {
-	console.log("server running at 3001");
+	console.log("server running at app");
 });

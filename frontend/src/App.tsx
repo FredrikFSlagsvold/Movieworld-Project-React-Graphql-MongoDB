@@ -1,46 +1,55 @@
 import React, { useState } from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import DisplayUsers from './components/DisplayUsers';
+import Header from './components/Header';
+import SearchField from './components/SearchField';
 
-type Shows = [{
-  id: String,
-  title: String,
-  type: String
-}]
+
+
 
 function App() {
-  const [shows, setShows] = useState<Shows>();
+  const [display, setDisplay] = useState("all")
 
-  fetch("http://localhost:3001/user", {
-    method: 'POST',
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-        query:`
-        {
-          Users{
-            id
-            title
-            type
-          }
-        }
-        `
-    })
-})
-.then(res => res.json())
-.then(data => {
-  setShows(data.data.Users)
-})
+  const choices = ["All", "Users", "Movie"]
   return (
-    <table>
-      <thead>Nicolai Opplæring</thead>
-      <tbody>
-      {shows?.map((show) => {
-        return(
-        <tr>
-          <td>{show.title}</td>
-        </tr>  )      
-      })}
-      </tbody>
-    </table>
+    <>
+    <div className='center'>
+      <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={<Navigate replace to="/new/1" />}
+          />
+
+          <Route
+            path="/displayUsers"
+            element={<DisplayUsers/>}
+          />
+          {/* <Route path="/login" element={<Login/>}/> */}
+          <Route path="/search"element={<SearchField/>}/>
+        </Routes>
+    </div>
+    {/* <div> */}
+    {/* <SearchField searchInput={"Hei"} />
+    {choices.map(name => {
+      return (
+      <button onClick={()=>setDisplay(name)}>
+        {name}
+      </button>)
+    })} 
+    </div>
+     {display === "All" && 
+    <p>HallaBalla</p>}
+    {display === "Users" && 
+    <DisplayUsers />}
+     {display === "Movie" && 
+    <p>Mamma Mia</p>} */}
+    </>
   );
 }
 
 export default App;
+
+
+
+
