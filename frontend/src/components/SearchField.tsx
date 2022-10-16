@@ -1,4 +1,4 @@
-import React, {  useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { gql, useQuery } from '@apollo/client';
 import { debounce, MenuItem, TextField } from "@mui/material";
 
@@ -132,7 +132,3 @@ export default function SearchField(){
     </>
   );
 }
-
-
-
-

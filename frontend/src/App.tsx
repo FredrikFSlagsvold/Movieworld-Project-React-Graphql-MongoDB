@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import DisplayUsers from './components/DisplayUsers';
 import Header from './components/Header';
+import MoviesPaginated from './components/MoviesPaginated';
 import SearchField from './components/SearchField';
 
 
 
 
 function App() {
-  const [display, setDisplay] = useState("all")
 
-  const choices = ["All", "Users", "Movie"]
   return (
     <>
     <div className='center'>
@@ -26,24 +25,10 @@ function App() {
             element={<DisplayUsers/>}
           />
           {/* <Route path="/login" element={<Login/>}/> */}
-          <Route path="/search"element={<SearchField/>}/>
+          <Route path="/search" element={<SearchField/>}/>
+          <Route path="/movieoffset" element={<MoviesPaginated value={0}/>}/>
         </Routes>
     </div>
-    {/* <div> */}
-    {/* <SearchField searchInput={"Hei"} />
-    {choices.map(name => {
-      return (
-      <button onClick={()=>setDisplay(name)}>
-        {name}
-      </button>)
-    })} 
-    </div>
-     {display === "All" && 
-    <p>HallaBalla</p>}
-    {display === "Users" && 
-    <DisplayUsers />}
-     {display === "Movie" && 
-    <p>Mamma Mia</p>} */}
     </>
   );
 }

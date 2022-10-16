@@ -104,7 +104,18 @@ const schema = new GraphQLSchema({
 						return MovieModel.find({"listed_in":{ $regex: args.text } })
 					}
 				}
-			}
+			},
+			moviesPagination: {
+				type: GraphQLList(MovieType),
+                args: {
+                    skip: { type: GraphQLInt},
+                    limit: { type: GraphQLInt },
+                },
+                type: new GraphQLList(MovieType),
+                resolve: (root, args, context, info) => {
+                    return MovieModel.find().skip(args.skip).limit(args.limit).exec()
+                }
+            },
 		}
 	}),
 
