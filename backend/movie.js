@@ -22,16 +22,21 @@ mongoose
 	.catch(err => console.error(err));
 
 const MovieModel = mongoose.model("movie", {
-	title: String,
 	type: String,
+	title: String,
+	cast: String,
+	listed_in: String
+
 });
 
 const MovieType = new GraphQLObjectType({
 	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
+		type: { type: GraphQLString },
 		title: { type: GraphQLString },
-		type: { type: GraphQLString }
+		cast: { type: GraphQLString },
+		listed_in: { type: GraphQLString },
 	}
 });
 
@@ -79,9 +84,38 @@ const schema = new GraphQLSchema({
 					skip: { type: GraphQLInt}
 				},
 				resolve: (root, args, context, info) => {
-					return MovieModel.find().skip(args.skip).limit(args.limit).exec()
+					// return MovieModel.find().skip(args.skip).limit(args.limit).exec()
+					return MovieModel.find().skip(args.skip).limit(args.limit).exec();
 				}
-			}
+			},
+			//TODO: Fix the default pagnation 
+			moviesBySearch: {
+				type: GraphQLList(MovieType),
+				args: {
+					filter: { type: GraphQLString }, 
+					text: { type: GraphQLString },
+				},
+				resolve: (root, args, context, info) => {
+					if(args.filter==="Movie" || args.filter ==="TV Show"){
+						return MovieModel.find({"type": args.filter}).find({ "title": { $regex: args.text }}).exec()
+					}else if(args.filter === "Actor"){
+						return MovieModel.find({"cast":{ $regex: args.text } })
+					}else if(args.filter === "Category"){
+						return MovieModel.find({"listed_in":{ $regex: args.text } })
+					}
+				}
+			},
+			moviesPagination: {
+				type: GraphQLList(MovieType),
+                args: {
+                    skip: { type: GraphQLInt},
+                    limit: { type: GraphQLInt },
+                },
+                type: new GraphQLList(MovieType),
+                resolve: (root, args, context, info) => {
+                    return MovieModel.find().skip(args.skip).limit(args.limit).exec()
+                }
+            },
 		}
 	}),
 
@@ -110,3 +144,4 @@ app.use("/movie", ExpressGraphQL({schema, graphiql: true}));
 app.listen(3001, () => {
 	console.log("server running at app");
 });
+
