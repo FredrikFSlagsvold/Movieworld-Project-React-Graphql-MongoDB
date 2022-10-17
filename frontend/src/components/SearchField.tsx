@@ -15,10 +15,6 @@ const FILTER = [
     icon: "!"
   },
   { 
-    value: "TV Show",
-    icon: "?"
-  },
-  { 
     value: "Actor",
     icon: "&"
   },

@@ -115,9 +115,9 @@ const schema = new GraphQLSchema({
 					if(args.filter==="Movie"){
 						return MovieModel.find({ "title": { $regex: args.text }}).exec()
 					}else if(args.filter === "Actor"){
-						return MovieModel.find({"cast":{ $regex: args.text } })
-					}else if(args.filter === "Genres"){
-						return MovieModel.find({"Genres":{ $regex: args.text } })
+						return MovieModel.find({"cast.name":{ $regex: args.text } })
+					}else if(args.filter === "Category"){
+						return MovieModel.find({"genres":{ $regex: args.text } })
 					}
 				}
 			},
