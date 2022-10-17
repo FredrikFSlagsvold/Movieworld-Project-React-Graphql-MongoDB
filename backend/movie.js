@@ -10,7 +10,9 @@ const {
 	GraphQLNonNull,
 	GraphQLObjectType,
 	GraphQLInt,
-	GraphQLEnumType
+	GraphQLEnumType,
+	GraphQLInputObjectType,
+	GraphQLScalarType
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
@@ -25,17 +27,17 @@ mongoose
 
 const MovieModel = mongoose.model("movie", {
 	title: String,
-	cast: {
+	cast: [{
 		id: String,
 		name: String
-	},
-	genres: String
+	}],
+	genres: [String]
 });
 
 
 
 const CastType = new GraphQLObjectType({
-	name: "Genres",
+	name: "cast",
 	fields: {
 		id: { type: GraphQLID },
 		name: { type: GraphQLString}
@@ -43,12 +45,14 @@ const CastType = new GraphQLObjectType({
 })
 
 
+
 const MovieType = new GraphQLObjectType({
 	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
-		genres: { type: GraphQLString },
+		genres: { type: new GraphQLList(GraphQLString) },
+		cast: { type: new GraphQLList(CastType)}
 	}
 });
 
