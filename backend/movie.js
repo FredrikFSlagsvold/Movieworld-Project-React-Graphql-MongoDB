@@ -9,10 +9,12 @@ const {
 	GraphQLSchema,
 	GraphQLNonNull,
 	GraphQLObjectType,
-	GraphQLInt
+	GraphQLInt,
+	GraphQLEnumType
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
+const { resolve } = require("path");
 
 app.use(cors());
 
@@ -22,21 +24,31 @@ mongoose
 	.catch(err => console.error(err));
 
 const MovieModel = mongoose.model("movie", {
-	type: String,
 	title: String,
-	cast: String,
-	listed_in: String
-
+	cast: {
+		id: String,
+		name: String
+	},
+	genres: String
 });
+
+
+
+const CastType = new GraphQLObjectType({
+	name: "Genres",
+	fields: {
+		id: { type: GraphQLID },
+		name: { type: GraphQLString}
+	}
+})
+
 
 const MovieType = new GraphQLObjectType({
 	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
-		type: { type: GraphQLString },
-		title: { type: GraphQLString },
-		cast: { type: GraphQLString },
-		listed_in: { type: GraphQLString },
+		title: 	{ type: GraphQLString },
+		genres: { type: GraphQLString },
 	}
 });
 
