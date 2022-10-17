@@ -4,11 +4,9 @@ import { debounce, MenuItem, TextField } from "@mui/material";
 
 type MovieProps ={
   id: String;
-  title: String;
-  type: String;    
-  actor: String;
-  cast: String;
-  listed_in: String;
+  title: String; 
+  cast: [{id: String, name: String}];
+  genres: [String];
 }
 
 const FILTER = [
@@ -66,10 +64,12 @@ export default function SearchField(){
     query Query($text: String, $filter: String){
     moviesBySearch(text: $text, filter: $filter){
     id,
-    type,
     title,
-    cast,
-    listed_in
+    genres,
+    cast{ 
+      id,
+      name
+      }
     }
     }
     `;
@@ -108,27 +108,22 @@ export default function SearchField(){
       />
       <div>
       </div>
-      {data.moviesBySearch.map(({ title, type, actor,cast, listed_in}: MovieProps, index: any) => {
-        return( <table key={index} className="href">
+      {data.moviesBySearch.map(({ title, cast, genres}: MovieProps, index: any) => {
+        return( <table key={index} className="">
           <thead>
           <tr>
-            <td>Title</td>
-            <td>Type</td>
-            <td>Actor</td>
+            {/* <td>Title</td>
             <td>Cast</td>
-            <td>Listed in:</td>
+            <td>Genres</td>  */}
           </tr>
           </thead>
           <tbody>
-            <tr>{title}</tr>
-            <tr>{type}</tr>
-            <tr>{actor}</tr>
-            <tr>{cast}</tr>
-            <tr>{listed_in}</tr>
+            <tr><h1>{title}</h1></tr>
+            <tr>{cast.map((actor)=> {return <tr><td>NAVN:{actor.name}</td>ID:{actor.id}</tr>})}</tr>
+            <tr>{genres.map((genres)=> {return <li>{genres}</li>})}</tr> 
           </tbody>
         </table>)
       })}
-    
     </>
   );
 }

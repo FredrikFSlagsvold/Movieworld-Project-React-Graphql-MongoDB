@@ -51,8 +51,8 @@ const MovieType = new GraphQLObjectType({
 	fields: {
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
-		genres: { type: new GraphQLList(GraphQLString) },
-		cast: { type: new GraphQLList(CastType)}
+		genres: { type:  GraphQLList(GraphQLString) },
+		cast: { type:  GraphQLList(CastType)}
 	}
 });
 
@@ -112,12 +112,12 @@ const schema = new GraphQLSchema({
 					text: { type: GraphQLString },
 				},
 				resolve: (root, args, context, info) => {
-					if(args.filter==="Movie" || args.filter ==="TV Show"){
-						return MovieModel.find({"type": args.filter}).find({ "title": { $regex: args.text }}).exec()
+					if(args.filter==="Movie"){
+						return MovieModel.find({ "title": { $regex: args.text }}).exec()
 					}else if(args.filter === "Actor"){
 						return MovieModel.find({"cast":{ $regex: args.text } })
-					}else if(args.filter === "Category"){
-						return MovieModel.find({"listed_in":{ $regex: args.text } })
+					}else if(args.filter === "Genres"){
+						return MovieModel.find({"Genres":{ $regex: args.text } })
 					}
 				}
 			},
