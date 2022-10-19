@@ -1,10 +1,24 @@
+html, body {
+    margin: 0;
+  }
 
 .href{
     display: flex;
     justify-content: space-between;
-    margin-right: 64px;
+    background-color: #8b6363;
+    height: 40px;
+    margin-bottom: 8px;
 }
 
 .link{
     margin-left: 40px;
 }
+
+.searchBar{
+    background-color: #F3CCCC;
+    height: 50px;
+    width: 500px;
+    border-radius: 100px;
+    
+}
+

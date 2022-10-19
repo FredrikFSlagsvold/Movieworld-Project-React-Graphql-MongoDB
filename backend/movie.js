@@ -31,7 +31,10 @@ const MovieModel = mongoose.model("movie", {
 		id: String,
 		name: String
 	}],
-	genres: [String]
+	genres: [String],
+	poster_path: String,
+    original_language: String,
+    runtime: Number
 });
 
 
@@ -52,7 +55,10 @@ const MovieType = new GraphQLObjectType({
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
 		genres: { type:  GraphQLList(GraphQLString) },
-		cast: { type:  GraphQLList(CastType)}
+		cast: { type:  GraphQLList(CastType)},
+		runtime: { type: GraphQLInt},
+		original_language: { type: GraphQLString },
+		poster_path: { type: GraphQLString }
 	}
 });
 
@@ -72,7 +78,7 @@ const schema = new GraphQLSchema({
 				}
 			},
 			// Query 2
-			peopleByID: {
+			movieByID: {
 				// name of the query is people by id
 				type: MovieType,
 				args: {

@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { gql, useQuery } from '@apollo/client';
-import { debounce, MenuItem, TextField } from "@mui/material";
+import { Box, debounce, MenuItem, TextField } from "@mui/material";
+import DisplaySingleMovie from "./DisplaySingleMovie";
+import "../components/header.css"
+
 
 type MovieProps ={
   id: String;
@@ -66,6 +69,8 @@ export default function SearchField(){
       id,
       name
       }
+    poster_path,
+    original_language
     }
     }
     `;
@@ -78,48 +83,53 @@ export default function SearchField(){
     if (error) return <p>Error</p>;
     console.log("text", text)
     console.log("filter", filter)
-    console.log("data", data)
+    console.log("data search", data.moviesBySearch)
     return (
+    
     <>
-    <div>
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select"
-          value={filter}
-          onChange={handleChange}
-          helperText="Please select your currency"
-        >
-          {FILTER.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.icon} {option.value}
-            </MenuItem>
-          ))}
-        </TextField>
+      <div> 
+          <form>
+            <input className="searchBar"
+            onChange={debounceHandler}
+            placeholder="Search"
+            type="search"
+            />
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select"
+            value={filter}
+            onChange={handleChange}
+            helperText="Please select your currency"
+            >
+            {FILTER.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.icon} {option.value}
+              </MenuItem>
+            ))}
+            
+          </TextField>
+          </form>
+
       </div>
-       <input
-        onChange={debounceHandler}
-        placeholder="Search"
-        type="search"
-      />
-      <div>
-      </div>
-      {data.moviesBySearch.map(({ title, cast, genres}: MovieProps, index: any) => {
-        return( <table key={index} className="">
-          <thead>
-          <tr>
-            {/* <td>Title</td>
-            <td>Cast</td>
-            <td>Genres</td>  */}
-          </tr>
-          </thead>
-          <tbody>
-            <tr><h1>{title}</h1></tr>
-            <tr>{cast.map((actor)=> {return <tr><td>NAVN:{actor.name}</td>ID:{actor.id}</tr>})}</tr>
-            <tr>{genres.map((genres)=> {return <li>{genres}</li>})}</tr> 
-          </tbody>
-        </table>)
-      })}
-    </>
-  );
+        <Box  sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          padding: '56px',
+        }}>
+          {data.moviesBySearch.map((data: any) => {
+            return(
+              <Box 
+              sx={{
+                display: 'flex',
+                padding: '32px',
+                }}>
+                <DisplaySingleMovie poster_path={data.poster_path} id={data.id} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
+              </Box>
+            )
+          })}
+        </Box>
+      </>
+    );
 }
