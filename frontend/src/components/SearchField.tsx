@@ -1,24 +1,21 @@
 import React, { useMemo, useState } from "react";
 import { gql, useQuery } from '@apollo/client';
-import { debounce, MenuItem, TextField } from "@mui/material";
+import { Box, debounce, MenuItem, TextField } from "@mui/material";
+import DisplaySingleMovie from "./DisplaySingleMovie";
+import "../components/header.css"
+
 
 type MovieProps ={
   id: String;
-  title: String;
-  type: String;    
-  actor: String;
-  cast: String;
-  listed_in: String;
+  title: String; 
+  cast: [{id: String, name: String}];
+  genres: [String];
 }
 
 const FILTER = [
   { 
     value: "Movie",
     icon: "!"
-  },
-  { 
-    value: "TV Show",
-    icon: "?"
   },
   { 
     value: "Actor",
@@ -66,10 +63,14 @@ export default function SearchField(){
     query Query($text: String, $filter: String){
     moviesBySearch(text: $text, filter: $filter){
     id,
-    type,
     title,
-    cast,
-    listed_in
+    genres,
+    cast{ 
+      id,
+      name
+      }
+    poster_path,
+    original_language
     }
     }
     `;
@@ -82,53 +83,53 @@ export default function SearchField(){
     if (error) return <p>Error</p>;
     console.log("text", text)
     console.log("filter", filter)
-    console.log("data", data)
+    console.log("data search", data.moviesBySearch)
     return (
-    <>
-    <div>
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select"
-          value={filter}
-          onChange={handleChange}
-          helperText="Please select your currency"
-        >
-          {FILTER.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.icon} {option.value}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-       <input
-        onChange={debounceHandler}
-        placeholder="Search"
-        type="search"
-      />
-      <div>
-      </div>
-      {data.moviesBySearch.map(({ title, type, actor,cast, listed_in}: MovieProps, index: any) => {
-        return( <table key={index} className="href">
-          <thead>
-          <tr>
-            <td>Title</td>
-            <td>Type</td>
-            <td>Actor</td>
-            <td>Cast</td>
-            <td>Listed in:</td>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>{title}</tr>
-            <tr>{type}</tr>
-            <tr>{actor}</tr>
-            <tr>{cast}</tr>
-            <tr>{listed_in}</tr>
-          </tbody>
-        </table>)
-      })}
     
-    </>
-  );
+    <>
+      <div> 
+          <form>
+            <input className="searchBar"
+            onChange={debounceHandler}
+            placeholder="Search"
+            type="search"
+            />
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select"
+            value={filter}
+            onChange={handleChange}
+            helperText="Please select your currency"
+            >
+            {FILTER.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.icon} {option.value}
+              </MenuItem>
+            ))}
+            
+          </TextField>
+          </form>
+
+      </div>
+        <Box  sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          padding: '56px',
+        }}>
+          {data.moviesBySearch.map((data: any) => {
+            return(
+              <Box 
+              sx={{
+                display: 'flex',
+                padding: '32px',
+                }}>
+                <DisplaySingleMovie poster_path={data.poster_path} id={data.id} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
+              </Box>
+            )
+          })}
+        </Box>
+      </>
+    );
 }

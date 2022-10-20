@@ -17,7 +17,9 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Navigate replace to="/new/1" />}
+          element={<SearchField/>}
+
+            // {/* element={<Navigate replace to="/new/1" />} */}
           />
 
           <Route
@@ -25,7 +27,7 @@ function App() {
             element={<DisplayUsers/>}
           />
           {/* <Route path="/login" element={<Login/>}/> */}
-          <Route path="/search" element={<SearchField/>}/>
+          {/* <Route path="/search" element={<SearchField/>}/> */}
           <Route path="/movieoffset" element={<MoviesPaginated value={0}/>}/>
         </Routes>
     </div>

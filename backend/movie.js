@@ -10,7 +10,9 @@ const {
 	GraphQLNonNull,
 	GraphQLObjectType,
 	GraphQLInt,
-	GraphQLEnumType
+	GraphQLEnumType,
+	GraphQLInputObjectType,
+	GraphQLScalarType
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
@@ -25,17 +27,20 @@ mongoose
 
 const MovieModel = mongoose.model("movie", {
 	title: String,
-	cast: {
+	cast: [{
 		id: String,
 		name: String
-	},
-	genres: String
+	}],
+	genres: [String],
+	poster_path: String,
+    original_language: String,
+    runtime: Number
 });
 
 
 
 const CastType = new GraphQLObjectType({
-	name: "Genres",
+	name: "cast",
 	fields: {
 		id: { type: GraphQLID },
 		name: { type: GraphQLString}
@@ -43,12 +48,17 @@ const CastType = new GraphQLObjectType({
 })
 
 
+
 const MovieType = new GraphQLObjectType({
 	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
-		genres: { type: GraphQLString },
+		genres: { type:  GraphQLList(GraphQLString) },
+		cast: { type:  GraphQLList(CastType)},
+		runtime: { type: GraphQLInt},
+		original_language: { type: GraphQLString },
+		poster_path: { type: GraphQLString }
 	}
 });
 
@@ -68,7 +78,7 @@ const schema = new GraphQLSchema({
 				}
 			},
 			// Query 2
-			peopleByID: {
+			movieByID: {
 				// name of the query is people by id
 				type: MovieType,
 				args: {
@@ -108,12 +118,12 @@ const schema = new GraphQLSchema({
 					text: { type: GraphQLString },
 				},
 				resolve: (root, args, context, info) => {
-					if(args.filter==="Movie" || args.filter ==="TV Show"){
-						return MovieModel.find({"type": args.filter}).find({ "title": { $regex: args.text }}).exec()
+					if(args.filter==="Movie"){
+						return MovieModel.find({ "title": { $regex: args.text }}).exec()
 					}else if(args.filter === "Actor"){
-						return MovieModel.find({"cast":{ $regex: args.text } })
+						return MovieModel.find({"cast.name":{ $regex: args.text } })
 					}else if(args.filter === "Category"){
-						return MovieModel.find({"listed_in":{ $regex: args.text } })
+						return MovieModel.find({"genres":{ $regex: args.text } })
 					}
 				}
 			},
