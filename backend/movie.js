@@ -58,7 +58,8 @@ const MovieType = new GraphQLObjectType({
 		cast: { type:  GraphQLList(CastType)},
 		runtime: { type: GraphQLInt},
 		original_language: { type: GraphQLString },
-		poster_path: { type: GraphQLString }
+		poster_path: { type: GraphQLString },
+		runtime: {type: GraphQLInt}
 	}
 });
 
