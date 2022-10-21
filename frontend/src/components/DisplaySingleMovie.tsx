@@ -11,7 +11,7 @@ type DisplaySingleMovieProps ={
 
 
 export default function DisplaySingleMovie({poster_path, original_language, title, runtime, genres}: DisplaySingleMovieProps){
-
+    
     return <>
     <div style={{
         width: 190,

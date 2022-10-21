@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import MovieIcon from '@mui/icons-material/Movie';
-import CategoryIcon from '@mui/icons-material/Category';
-import EventIcon from '@mui/icons-material/Event';
-import { height } from '@mui/system';
-import Resizer from "react-image-file-resizer";
 import "./header.css";
 import { styled } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
+import { useParams } from 'react-router-dom';
 
 
 type ThisMovieProps = {
@@ -36,10 +30,7 @@ const Root = styled('div')(({ theme }) => ({
   }));
 
 
-
-export default function DisplayMovie({id="634c5e0659c45f3fc4e14a4c"}: ThisMovieProps) {
-
-    const getMovie = gql` 
+  const GET_MOVIE = gql` 
     query Query ($id: ID!) {
         movieByID (id: $id) {
           title
@@ -61,12 +52,18 @@ export default function DisplayMovie({id="634c5e0659c45f3fc4e14a4c"}: ThisMovieP
       }
     `;
 
-    const { loading, error, data } = useQuery(getMovie, {
-        variables: {id}
+export default function DisplayMovie() {
+
+    const { movieID } = useParams<string>();
+
+    console.log(movieID)
+
+    const { loading, error, data } = useQuery(GET_MOVIE, {
+        variables: {id: movieID}
     });
 
     
-
+  
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
     console.log(data)
@@ -83,7 +80,8 @@ export default function DisplayMovie({id="634c5e0659c45f3fc4e14a4c"}: ThisMovieP
                 <MovieIcon data-testid="movieIcon"></MovieIcon> 
             </div>
             */
-    console.log(data.Miv)
+    console.log("heiiiiiii")
+
     return (
         <div>
             <div style={{backgroundColor: "white", margin: "0px 290px 0px", fontFamily: "Georgia"}}>
