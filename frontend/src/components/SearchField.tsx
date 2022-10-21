@@ -3,14 +3,16 @@ import { gql, useQuery } from '@apollo/client';
 import { Box, debounce, MenuItem, TextField } from "@mui/material";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import "../components/header.css"
+import DisplayMovie from "./DisplayMovie";
+import { Link, useNavigate } from "react-router-dom";
 
 
-type MovieProps ={
-  id: String;
-  title: String; 
-  cast: [{id: String, name: String}];
-  genres: [String];
-}
+// type MovieProps ={
+//   id: String;
+//   title: String; 
+//   cast: [{id: String, name: String}];
+//   genres: [String];
+// }
 
 const FILTER = [
   { 
@@ -30,6 +32,8 @@ const FILTER = [
 export default function SearchField(){
   const [filter, setFilter] = useState("Movie");
   const [text, setText] = useState("")
+
+  const nav = useNavigate();
     
   
   const handleChange = (event: any) => {
@@ -120,13 +124,13 @@ export default function SearchField(){
         }}>
           {data.moviesBySearch.map((data: any) => {
             return(
-              <Box 
-              sx={{
-                display: 'flex',
-                padding: '32px',
-                }}>
+              // <Link key={data.id} to="/DisplayMovie" id={data.movieByID}>
+              //   <DisplaySingleMovie poster_path={data.poster_path} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
+              // </Link>
+              <button onClick={()=> nav('/movie/' + data.id)}> 
                 <DisplaySingleMovie poster_path={data.poster_path} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
-              </Box>
+              </button>
+
             )
           })}
         </Box>

@@ -59,7 +59,7 @@ const MovieType = new GraphQLObjectType({
 	fields: {
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
-		genres: { type: GraphQLString },
+		genres: { type: GraphQLList(GraphQLString) },
 		vote_average: {type: GraphQLInt},
 		runtime: {type: GraphQLString},
 		vote_count: {type: GraphQLInt},
