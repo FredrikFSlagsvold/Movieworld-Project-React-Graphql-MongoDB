@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import DisplayUsers from './components/DisplayUsers';
 import Header from './components/Header';
+import DisplayMovie from './components/DisplayMovie';
 import MoviesPaginated from './components/MoviesPaginated';
 import SearchField from './components/SearchField';
 
@@ -27,7 +28,8 @@ function App() {
             element={<DisplayUsers/>}
           />
           {/* <Route path="/login" element={<Login/>}/> */}
-          {/* <Route path="/search" element={<SearchField/>}/> */}
+          <Route path="/movieInfo"element={<DisplayMovie/>}/>
+          <Route path="/search" element={<SearchField/>}/>
           <Route path="/movieoffset" element={<MoviesPaginated value={0}/>}/>
         </Routes>
     </div>

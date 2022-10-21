@@ -32,12 +32,19 @@ const MovieModel = mongoose.model("movie", {
 		name: String
 	}],
 	genres: [String],
+	vote_average: Number,
+	runtime: Number,
+	vote_count: Number,
+	overview: String,
+	directors: [{
+		id: String,
+		name: String
+	}],
+	release_date: String,
 	poster_path: String,
-    original_language: String,
-    runtime: Number
+	trailer_yt: String,
+	original_language: String
 });
-
-
 
 const CastType = new GraphQLObjectType({
 	name: "cast",
@@ -47,20 +54,34 @@ const CastType = new GraphQLObjectType({
 	}
 })
 
-
-
 const MovieType = new GraphQLObjectType({
 	name: "Movies",
 	fields: {
 		id: { type: GraphQLID },
 		title: 	{ type: GraphQLString },
-		genres: { type:  GraphQLList(GraphQLString) },
-		cast: { type:  GraphQLList(CastType)},
-		runtime: { type: GraphQLInt},
-		original_language: { type: GraphQLString },
-		poster_path: { type: GraphQLString }
+		genres: { type: GraphQLString },
+		vote_average: {type: GraphQLInt},
+		runtime: {type: GraphQLString},
+		vote_count: {type: GraphQLInt},
+		overview: {type: GraphQLString},
+		release_date: {type: GraphQLString},
+		poster_path: {type: GraphQLString},
+		trailer_yt: {type: GraphQLString},
+		original_language: {type: GraphQLString},
+		cast: { type: GraphQLList(CastType)},
+		directors: { type: GraphQLList(CastType) }
+		/*
+		directors: {type: {
+			id: {type: GraphQLID},
+			name: {type: GraphQLString}
+		}},
+		
+		
+	}
+	*/
 	}
 });
+
 
 const schema = new GraphQLSchema({
 	query: new GraphQLObjectType({
@@ -138,6 +159,19 @@ const schema = new GraphQLSchema({
                     return MovieModel.find().skip(args.skip).limit(args.limit).exec()
                 }
             },
+			
+			movieByID: {
+				// name of the query is people by id
+				type: MovieType,
+				args: {
+					// strong validation for graphqlid, which is mendatory for running this query
+					id: { type: GraphQLNonNull(GraphQLID) }
+				},
+				resolve: (root, args, context, info) => {
+					return MovieModel.findById(args.id).exec();
+				}
+			}
+			
 		}
 	}),
 
