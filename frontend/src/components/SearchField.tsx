@@ -55,7 +55,7 @@ export default function SearchField(){
     
     //Debounce to wait the search
     const debounceHandler = useMemo(() => {
-      return debounce(changeHandler, 500);
+      return debounce(changeHandler, 1500);
     }, []);
    
 
@@ -125,7 +125,7 @@ export default function SearchField(){
                 display: 'flex',
                 padding: '32px',
                 }}>
-                <DisplaySingleMovie poster_path={data.poster_path} id={data.id} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
+                <DisplaySingleMovie poster_path={data.poster_path} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
               </Box>
             )
           })}
