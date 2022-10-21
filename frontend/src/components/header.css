@@ -14,11 +14,6 @@ html, body {
     margin-left: 40px;
 }
 
-.searchBar{
-    background-color: #F3CCCC;
-    height: 50px;
-    width: 500px;
-    border-radius: 100px;
-    
+body{
+    margin: 0
 }
-
