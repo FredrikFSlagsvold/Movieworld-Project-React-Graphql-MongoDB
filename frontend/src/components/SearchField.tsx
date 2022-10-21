@@ -70,8 +70,7 @@ export default function SearchField(){
       name
       }
     poster_path,
-    original_language,
-    runtime
+    original_language
     }
     }
     `;
