@@ -26,28 +26,29 @@ mongoose
   .catch((err) => console.error(err));
 
 const MovieModel = mongoose.model("movie", {
-  title: String,
-  cast: [
-    {
-      id: String,
-      name: String,
-    },
-  ],
-  genres: [String],
-  vote_average: Number,
-  runtime: Number,
-  vote_count: Number,
-  overview: String,
-  directors: [
-    {
-      id: String,
-      name: String,
-    },
-  ],
-  release_date: String,
-  poster_path: String,
-  trailer_yt: String,
-  original_language: String,
+	title: String,
+	id: Number,
+	cast: [{
+		id: String,
+		name: String
+	}],
+	genres: [String],
+	vote_average: Number,
+	runtime: Number,
+	vote_count: Number,
+	overview: String,
+	directors: [{
+		id: String,
+		name: String
+	}],
+	similar: [{
+		id: Number,
+		title: String
+	}],
+	release_date: String,
+	poster_path: String,
+	trailer_yt: String,
+	original_language: String
 });
 
 const CastType = new GraphQLObjectType({
@@ -58,32 +59,32 @@ const CastType = new GraphQLObjectType({
   },
 });
 
-const MovieType = new GraphQLObjectType({
-  name: "Movies",
-  fields: {
-    id: { type: GraphQLID },
-    title: { type: GraphQLString },
-    genres: { type: GraphQLList(GraphQLString) },
-    vote_average: { type: GraphQLInt },
-    runtime: { type: GraphQLString },
-    vote_count: { type: GraphQLInt },
-    overview: { type: GraphQLString },
-    release_date: { type: GraphQLString },
-    poster_path: { type: GraphQLString },
-    trailer_yt: { type: GraphQLString },
-    original_language: { type: GraphQLString },
-    cast: { type: GraphQLList(CastType) },
-    directors: { type: GraphQLList(CastType) },
-    /*
-		directors: {type: {
-			id: {type: GraphQLID},
-			name: {type: GraphQLString}
-		}},
-		
-		
+const SimilarType = new GraphQLObjectType({
+	name: "similar",
+	fields: {
+		id: { type: GraphQLID },
+		title: { type: GraphQLString}
 	}
-	*/
-  },
+})
+
+const MovieType = new GraphQLObjectType({
+	name: "Movies",
+	fields: {
+		id: { type: GraphQLInt },
+		title: 	{ type: GraphQLString },
+		genres: { type: GraphQLList(GraphQLString) },
+		similar: { type: GraphQLList(SimilarType) },
+		vote_average: {type: GraphQLInt},
+		runtime: {type: GraphQLString},
+		vote_count: {type: GraphQLInt},
+		overview: {type: GraphQLString},
+		release_date: {type: GraphQLString},
+		poster_path: {type: GraphQLString},
+		trailer_yt: {type: GraphQLString},
+		original_language: {type: GraphQLString},
+		cast: { type: GraphQLList(CastType)},
+		directors: { type: GraphQLList(CastType) }
+	}
 });
 
 const UserModel = mongoose.model("user", {
@@ -105,94 +106,81 @@ const UserType = new GraphQLObjectType({
 });
 
 const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: "Query",
-    fields: {
-      // Query 1
-      // name of the query, people
-      Movies: {
-        // the type of response this query will return, here UserType
-        type: GraphQLList(MovieType),
-        // resolver is required
-        resolve: (root, args, context, info) => {
-          // we are returning all persons available in the table in mongodb
-          return MovieModel.find().exec();
-        },
-      },
-      // Query 2
-      movieByID: {
-        // name of the query is people by id
-        type: MovieType,
-        args: {
-          // strong validation for graphqlid, which is mendatory for running this query
-          id: { type: GraphQLNonNull(GraphQLID) },
-        },
-        resolve: (root, args, context, info) => {
-          return MovieModel.findById(args.id).exec();
-        },
-      },
-      // Query 3
-      peopleByName: {
-        type: GraphQLList(MovieType),
-        args: {
-          firstName: { type: GraphQLString },
-        },
-        resolve: (root, args, context, info) => {
-          return MovieModel.find({ firstName: args.firstName }).exec();
-        },
-      },
-      moviesByLimit: {
-        type: GraphQLList(MovieType),
-        args: {
-          limit: { type: GraphQLInt },
-          skip: { type: GraphQLInt },
-        },
-        resolve: (root, args, context, info) => {
-          // return MovieModel.find().skip(args.skip).limit(args.limit).exec()
-          return MovieModel.find().skip(args.skip).limit(args.limit).exec();
-        },
-      },
-      //TODO: Fix the default pagnation
-      moviesBySearch: {
-        type: GraphQLList(MovieType),
-        args: {
-          filter: { type: GraphQLString },
-          text: { type: GraphQLString },
-        },
-        resolve: (root, args, context, info) => {
-          if (args.filter === "Movie") {
-            return MovieModel.find({ title: { $regex: args.text } }).exec();
-          } else if (args.filter === "Actor") {
-            return MovieModel.find({ "cast.name": { $regex: args.text } });
-          } else if (args.filter === "Category") {
-            return MovieModel.find({ genres: { $regex: args.text } });
-          }
-        },
-      },
-      moviesPagination: {
-        type: GraphQLList(MovieType),
-        args: {
-          skip: { type: GraphQLInt },
-          limit: { type: GraphQLInt },
-        },
-        type: new GraphQLList(MovieType),
-        resolve: (root, args, context, info) => {
-          return MovieModel.find().skip(args.skip).limit(args.limit).exec();
-        },
-      },
-
-      movieByID: {
-        // name of the query is people by id
-        type: MovieType,
-        args: {
-          // strong validation for graphqlid, which is mendatory for running this query
-          id: { type: GraphQLNonNull(GraphQLID) },
-        },
-        resolve: (root, args, context, info) => {
-          return MovieModel.findById(args.id).exec();
-        },
-      },
-
+	query: new GraphQLObjectType({
+		name: "Query",
+		fields: {
+			// Query 1
+			Movies: {
+				type: GraphQLList(MovieType),
+				resolve: (root, args, context, info) => {
+					return MovieModel.find().exec();
+				}
+			},
+			// Query 2
+			movieByID: {
+				type: MovieType,
+				args: {
+					id: { type: GraphQLNonNull(GraphQLInt)}
+				},
+				resolve: (root, args, context, info) => {
+					console.log("iden er:")
+					console.log(args.id)
+					console.log("finner:")
+					MovieModel.find({'id':args.id}).exec().then((r) => console.log(r))
+					return MovieModel.findOne({'id':args.id}).exec();
+				}
+			},
+			moviesByLimit: {
+				type: GraphQLList(MovieType),
+				args: {
+					limit: { type: GraphQLInt},
+					skip: { type: GraphQLInt}
+				},
+				resolve: (root, args, context, info) => {
+					return MovieModel.find().skip(args.skip).limit(args.limit).exec();
+				}
+			},
+			moviesBySearch: {
+				type: GraphQLList(MovieType),
+				args: {
+				  filter: { type: GraphQLString },
+				  text: { type: GraphQLString },
+				},
+				resolve: (root, args, context, info) => {
+				  if (args.filter === "Movie") {
+					return MovieModel.find({ title: { $regex: args.text } }).exec();
+				  } else if (args.filter === "Actor") {
+					return MovieModel.find({ "cast.name": { $regex: args.text } });
+				  } else if (args.filter === "Category") {
+					return MovieModel.find({ genres: { $regex: args.text } });
+				  }
+				},
+			  },
+			
+			  moviesPagination: {
+				type: GraphQLList(MovieType),
+				args: {
+				  skip: { type: GraphQLInt },
+				  limit: { type: GraphQLInt },
+				},
+				type: new GraphQLList(MovieType),
+				resolve: (root, args, context, info) => {
+				  return MovieModel.find().skip(args.skip).limit(args.limit).exec();
+				},
+			  },
+			
+			movieListByIDs: {
+				type: GraphQLList(MovieType),
+				args: {
+					ids: {type: new GraphQLList(GraphQLInt)}
+				},
+				type: new GraphQLList(MovieType),
+				resolve: (root, args, context, info) => {
+					console.log("args", args.ids);
+                    return MovieModel.find({"id": {$in: args.ids}}).exec()
+				}
+			},
+			
       User: {
         type: GraphQLList(UserType),
         resolve: (root, args, context, info) => {

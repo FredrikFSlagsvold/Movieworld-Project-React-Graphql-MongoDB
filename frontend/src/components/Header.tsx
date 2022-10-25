@@ -8,7 +8,7 @@ export default function Header(){
           <div className="link"><Link to="/">HomePage</Link></div>
             {/* <div className="link"><Link to="/search">Search</Link></div> */}
             <div className="link"><Link to="/displayUsers">displayUsers</Link></div>
-            <div className="link"><Link to="/movieInfo">Movie Info</Link></div>
+            <div className="link"><Link to="/movieoffset">movieoffset</Link></div>
             <div className="link"><Link to="login">Login</Link></div>
         </div>
       );
