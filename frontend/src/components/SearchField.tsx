@@ -69,6 +69,7 @@ export default function SearchField(){
     id,
     title,
     genres,
+    runtime,
     cast{ 
       id,
       name
