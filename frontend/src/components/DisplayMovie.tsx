@@ -41,6 +41,7 @@ const GET_MOVIE = gql`
       release_date
       original_language
       runtime
+      genres
       cast {
         name
         id
@@ -102,6 +103,7 @@ export default function DisplayMovie() {
     return <p>Error</p>;
   }
   console.log(data);
+  console.log("genres: " + data.movieByID.genres)
 
   /*
             <div className="href" style={{margin: "5px 320px 5px"}}>
@@ -152,8 +154,10 @@ export default function DisplayMovie() {
                       </div>
                     );
                   })}
-                <h3 style={{backgroundColor:"#F3CCCC", borderRadius:"25px", textAlign: "center", fontFamily: "Georgia"}}>Description</h3>
+                <h3 style={{backgroundColor:"#F3CCCC", borderRadius:"25px", textAlign: "center", fontFamily: "Verdana, sans-serif, Areal"}}>Description</h3>
                 {data?.movieByID.overview}
+                <h3 style={{backgroundColor:"#F3CCCC", borderRadius:"25px", textAlign: "center", fontFamily: "Verdana, sans-serif, Areal"}}>Categories</h3>
+                {data?.movieByID.genres.join(', ')}
               </Root>
             </div>
             <img
@@ -199,7 +203,7 @@ export default function DisplayMovie() {
             console.log(data)
             console.log(data.id)
             return (
-              <button onClick={() => nav("/movie/" + data.id)} style={{borderColor:"white"}}>
+              <div style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} >
                 <DisplaySingleMovie
                   key={data.id}
                   poster_path={data.poster_path}
@@ -208,8 +212,8 @@ export default function DisplayMovie() {
                   runtime={data.runtime}
                   genres={data.genres}
                 />
-              </button>
-            );
+              </div>
+            )
           })}
         </Box>
       </div>

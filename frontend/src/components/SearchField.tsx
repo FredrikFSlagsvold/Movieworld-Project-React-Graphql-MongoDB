@@ -5,6 +5,9 @@ import DisplaySingleMovie from "./DisplaySingleMovie";
 import "../components/header.css"
 import DisplayMovie from "./DisplayMovie";
 import { Link, useNavigate } from "react-router-dom";
+import MovieIcon from '@mui/icons-material/Movie';
+import Face6Icon from '@mui/icons-material/Face6';
+import CategoryIcon from '@mui/icons-material/Category';
 
 
 // type MovieProps ={
@@ -17,15 +20,15 @@ import { Link, useNavigate } from "react-router-dom";
 const FILTER = [
   { 
     value: "Movie",
-    icon: "!"
+    icon: <MovieIcon sx={{ color:"#8b6363"}} />
   },
   { 
     value: "Actor",
-    icon: "&"
+    icon: <Face6Icon sx={{ color:"#8b6363"}} />
   },
   { 
     value: "Category",
-    icon: "^"
+    icon: <CategoryIcon sx={{ color:"#8b6363"}} />
   },
 ]
 
@@ -89,6 +92,12 @@ export default function SearchField(){
     console.log("text", text)
     console.log("filter", filter)
     console.log("data search", data.moviesBySearch)
+
+
+    function changeBorderColor(e: any){
+      e.target.style.borderColor = "gray"
+    }
+
     return (
     
     <>
@@ -105,7 +114,7 @@ export default function SearchField(){
             label="Select"
             value={filter}
             onChange={handleChange}
-            helperText="Please select your currency"
+            helperText="Please select your category"
             >
             {FILTER.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -128,9 +137,15 @@ export default function SearchField(){
               // <Link key={data.id} to="/DisplayMovie" id={data.movieByID}>
               //   <DisplaySingleMovie poster_path={data.poster_path} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
               // </Link>
-              <button onClick={()=> nav('/movie/' + data.id)}> 
-                <DisplaySingleMovie poster_path={data.poster_path} original_language={data.original_language} title={data.title} runtime={data.runtime} genres={data.genres} />
-              </button>
+              <div style={{margin:"8px"}} onMouseOver={changeBorderColor} onClick={()=> nav('/movie/' + data.id)}> 
+                <DisplaySingleMovie 
+                  key={data.id}
+                  poster_path={data.poster_path} 
+                  original_language={data.original_language} 
+                  title={data.title} 
+                  runtime={data.runtime} 
+                  genres={data.genres} />
+              </div>
 
             )
           })}
