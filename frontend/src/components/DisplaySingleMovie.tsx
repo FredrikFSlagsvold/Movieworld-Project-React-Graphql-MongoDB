@@ -14,35 +14,41 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
     let genresString = genres.join(', ');
     // while (genresString.length<28)
 
+    /*
+    <div style={{ display: "flex", justifyContent: "space-between"}}>
+                <p style={{padding:"0", marginBottom:"0", marginTop:"0"}}>{runtime} min</p>
+                <p style={{padding:"0", marginBottom:"0", marginTop:"0"}}>{original_language} </p>
+            </div>
+    */
+
     return <>
     <div style={{
         width: 190,
-        height: 370,
+        height: 320,
         backgroundColor: "white",
+        fontFamily: "Verdana, sans-serif, Areal",
+        fontSize:"12px"
     }}>
         <img src={"https://image.tmdb.org/t/p/original/"+ poster_path} width="190px" height="284.8px"/>
             <div style={{textAlign:"center"}}>
             {(() => {
-        if (title.length>28) {
+        if (title.length>24) {
           return (
-            <div>{title.substring(0,25)+ "..."}</div>
+            <div><strong>{title.substring(0,21)+ "..."}</strong></div>
           )
         } else {
           return (
-            <div>{title}</div>
+            <div><strong>{title}</strong></div>
           )
         }
       })()}
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between"}}>
-                <p>{runtime} min</p>
-                <p>{original_language} </p>
-            </div>
+            
             <div style={{textAlign:"center"}}>
             {(() => {
-                if (genresString.length>28) {
+                if (genresString.length>25) {
                     return (
-                        <div>{genresString.substring(0,27)+ "..."}</div>
+                        <div>{genresString.substring(0,23)+ "..."}</div>
                     )
                 } else {
                     return (
