@@ -140,22 +140,51 @@ const schema = new GraphQLSchema({
 					return MovieModel.find().skip(args.skip).limit(args.limit).exec();
 				}
 			},
-			moviesBySearch: {
-				type: GraphQLList(MovieType),
-				args: {
-				  filter: { type: GraphQLString },
-				  text: { type: GraphQLString },
-				},
-				resolve: (root, args, context, info) => {
-				  if (args.filter === "Movie") {
-					return MovieModel.find({ title: { $regex: args.text } }).exec();
-				  } else if (args.filter === "Actor") {
-					return MovieModel.find({ "cast.name": { $regex: args.text } });
-				  } else if (args.filter === "Category") {
-					return MovieModel.find({ genres: { $regex: args.text } });
-				  }
-				},
-			  },
+			movieCount:{
+			type: GraphQLInt,
+			resolve: (root, args, context, info) => {
+				return MovieModel.countDocuments();
+			}
+		},
+		
+		moviesBySearch: {
+			type: GraphQLList(MovieType),
+			args: {
+			  filter: { type: GraphQLString },
+			  text: { type: GraphQLString },
+			  offset: { type: GraphQLInt },
+			  limit: { type: GraphQLInt },
+			},
+			resolve: (root, args, context, info) => {
+			  if (args.filter === "Movie") {
+				return MovieModel.find({ title: { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+			  } else if (args.filter === "Actor") {
+				return MovieModel.find({ "cast.name": { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+			  } else if (args.filter === "Category") {
+				return MovieModel.find({ genres: { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+			  }
+			},
+		  },
+		  
+		  moviesCountBySearch: {
+			args: {
+			  filter: { type: GraphQLString },
+			  text: { type: GraphQLString }
+			},
+			type: GraphQLInt,
+			resolve: (root, args, context, info) => {
+			  if (args.filter === "Movie") {
+				return MovieModel.countDocuments({ title: { $regex: args.text }});
+			  } 
+			  else if (args.filter === "Actor") {
+				return MovieModel.countDocuments({ "cast.name": { $regex: args.text } });
+			  } 
+			  else if (args.filter === "Category") {
+				return MovieModel.countDocuments({ genres: { $regex: args.text } });
+			  }
+			},
+		  },
+
 			
 			  moviesPagination: {
 				type: GraphQLList(MovieType),
@@ -184,7 +213,7 @@ const schema = new GraphQLSchema({
       User: {
         type: GraphQLList(UserType),
         resolve: (root, args, context, info) => {
-          return UserModel.find().exec();
+          return UserModel.find;
         },
       },
 

@@ -24,7 +24,8 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
     return <>
     <div style={{
         width: 190,
-        height: 320,
+        height: 370,
+        padding: "48px",
         backgroundColor: "white",
         fontFamily: "Verdana, sans-serif, Areal",
         fontSize:"12px"
