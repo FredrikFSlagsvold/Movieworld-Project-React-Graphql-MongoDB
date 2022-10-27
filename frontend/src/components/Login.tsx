@@ -73,17 +73,20 @@ const Login = () => {
             )
           }
           sx={{ m: 1 }}
+          data-testid="username"
         />
 
         <TextField
           label="Password"
           variant="outlined"
           type="password"
+          data-testid="password"
             value={password}
           required
               onChange={(e) =>
             setPassword(e.target.value
             )
+            
           }
           sx={{ m: 1 }}
         />
@@ -92,6 +95,7 @@ const Login = () => {
                 variant="contained"
                 onClick={checkUser}
                 sx={{ m: 1 }}
+                data-testid="loginButton" //legges inn for å kunne bruke knappen under end to end testing.
               >
               login
             </Button>
