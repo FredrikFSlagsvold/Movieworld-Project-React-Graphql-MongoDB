@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { gql, useQuery } from '@apollo/client';
 import { Box, debounce, MenuItem, TextField } from "@mui/material";
 import DisplaySingleMovie from "./DisplaySingleMovie";
-import "../components/header.css"
+import "./header.css"
 import { Link, useNavigate } from "react-router-dom";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
