@@ -15,6 +15,7 @@ type DisplaySingleMovieProps ={
     title: String;
     runtime: number;
     genres: [String]; 
+    id: String
 }
 
     const MovieFeed = gql`
@@ -45,14 +46,17 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error...</p>;
-
+    console.log("data", data)
     return (
         <div style={{display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         }}>
-            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language }: DisplaySingleMovieProps) =>  { return (
+            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) =>  { {console.log("fer", id)} return (
+                    
+                <div onClick={()=> nav('/movie/' + id)}>
                 <DisplaySingleMovie poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
+                </div>
             )})}
         </div>
     )
