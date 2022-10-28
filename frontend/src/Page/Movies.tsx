@@ -47,7 +47,7 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error...</p>;
 
-    // const handleKeyDown = (event: any) => {
+    // const handleKeyDown = (event: any, id: String) => {
     //     if (event.key === 'Enter') {
     //         // nav('/movie/' + id)
     //         console.log

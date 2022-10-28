@@ -203,7 +203,9 @@ export default function DisplayMovie() {
             console.log(data)
             console.log(data.id)
             return (
-              <div style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} >
+              <div style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                e.key === "Enter" && nav('/movie/' + data.id) 
+              }}>
                 <DisplaySingleMovie
                   key={data.id}
                   poster_path={data.poster_path}

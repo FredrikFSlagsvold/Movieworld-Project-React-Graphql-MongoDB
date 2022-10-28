@@ -21,7 +21,7 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
             </div>
     */
     
-    
+
 
 
     return <>
@@ -32,6 +32,7 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
         backgroundColor: "white",
         fontFamily: "Verdana, sans-serif, Areal",
         fontSize:"12px"
+        
     }} >
         <img src={"https://image.tmdb.org/t/p/original/"+ poster_path} width="190px" height="284.8px"/>
             <div style={{textAlign:"center"}}>
