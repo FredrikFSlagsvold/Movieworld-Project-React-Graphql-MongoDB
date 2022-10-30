@@ -1,5 +1,3 @@
-import { gql, useQuery } from '@apollo/client';
-import Box from '@mui/material/Box';
 
 type DisplaySingleMovieProps ={
     poster_path: String;
@@ -12,7 +10,6 @@ type DisplaySingleMovieProps ={
 
 export default function DisplaySingleMovie({poster_path, original_language, title, runtime, genres}: DisplaySingleMovieProps){
     let genresString = genres.join(', ');
-    // while (genresString.length<28)
 
     /*
     <div style={{ display: "flex", justifyContent: "space-between"}}>

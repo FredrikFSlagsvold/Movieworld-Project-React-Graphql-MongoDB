@@ -1,27 +1,13 @@
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import "./header.css";
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
-import Divider from "@mui/material/Divider";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { Box} from "@mui/material";
+import { useParams, useNavigate} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
+import FavoriteButton from "./FavoriteButton";
 
-type ThisMovieProps = {
-  id?: any;
-  title?: string;
-  type?: string;
-  cast?: [{ id: String; name: String }];
-  directors?: [{ id: String; name: String }];
-  country?: string;
-  release_date?: number;
-  description?: string;
-  listed_in?: string;
-  date_added?: string;
-  trailer_yt?: string;
-  original_language?: string;
-  runtime?: number;
-};
+
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -73,37 +59,34 @@ const GET_SIMILAR_MOVIES = gql`
 
 export default function DisplayMovie() {
   const { movieID } = useParams<string>();
-
   const nav = useNavigate();
+
+
 
   const { loading, error, data } = useQuery(GET_MOVIE, {
     variables: { id: parseInt(movieID!) },
   });
+  
 
   const [
     fetchSimilar,
     { loading: similarLoading, error: similarError, data: similarData },
   ] = useLazyQuery(GET_SIMILAR_MOVIES);
 
-  useEffect(() => {
-    console.log("data", data);
+    useEffect(() => {
     if (data === undefined) return;
     fetchSimilar({
       variables: { ids: data.movieByID.similar.map((data: any) => parseInt(data.id)) },
     });
   }, [data]);
 
-  console.log("simdata", similarData);
-  
-
-
   if (loading) return <p>Loading...</p>;
   if (error) {
-    console.log(error);
     return <p>Error</p>;
   }
-  console.log(data);
-  console.log("genres: " + data.movieByID.genres)
+   
+  // console.log(data);
+  // console.log("genres: " + data.movieByID.genres)
 
   /*
             <div className="href" style={{margin: "5px 320px 5px"}}>
@@ -126,7 +109,10 @@ export default function DisplayMovie() {
           fontFamily: "Verdana, sans-serif, Areal",
         }}
       >
-          <h1 style={{ textAlign: "center" }}>{data.movieByID.title}</h1>
+        <h1 style={{ textAlign: "center" }}>{data.movieByID.title}</h1>
+
+      <FavoriteButton movieTitle={data.movieByID.title}/>
+
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <p>{data?.movieByID.release_date.substring(0, 4)}</p>
             <p>{data?.movieByID.original_language}</p>
@@ -200,8 +186,6 @@ export default function DisplayMovie() {
         >
           {similarData?.movieListByIDs.map((data: any) => {
             //HER MÅ VI HA INN NOE SOM ENDRER FRA SIMILAR (TITLE, ID) TIL SELVE MOVIEN
-            console.log(data)
-            console.log(data.id)
             return (
               <div style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                 e.key === "Enter" && nav('/movie/' + data.id) 

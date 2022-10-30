@@ -7,12 +7,13 @@ import DisplayUsers from './components/DisplayUsers';
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
+import LikedMovies from './components/LikedMovies';
+import SearchField from './components/SearchField';
 
 
 
 
 function App() {
-
   return (
     <>
     <div>
@@ -22,11 +23,11 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route element={<ProtectedRoutes />}> 
-            <Route path="/displayUsers" element={<DisplayUsers/>} />
-            <Route path="/" element={<HomePage/>}/>
-            {/* <Route path="/movieoffset" element={<MoviesPaginated value={0} limit={0}/>}/> */}
-            <Route path="/movie/:movieID" element={<DisplayMovie />}/> 
-          {/* <Route path="/displayUsers" element={<DisplayUsers/>} /> */}
+              <Route path="/displayUsers" element={<DisplayUsers/>} />
+              <Route path="/" element={<HomePage/>}/>
+              <Route path="/movie/:movieID" element={<DisplayMovie />}/> 
+              <Route path="/liked" element={<LikedMovies/>} />
+              <Route path="/displayUsers" element={<DisplayUsers/>} />
           </Route>
         </Routes>
     </div>

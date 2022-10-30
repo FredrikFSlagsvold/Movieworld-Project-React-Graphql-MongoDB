@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { gql, useQuery } from '@apollo/client';
-import { Box, debounce, MenuItem, TextField } from "@mui/material";
-import DisplaySingleMovie from "./DisplaySingleMovie";
+import { debounce, MenuItem, TextField } from "@mui/material";
 import "./header.css"
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -49,15 +48,11 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
   });
 
   useEffect(()=>{
-    console.log("useeffect kjøres")
     setNumberOfPages(Math.ceil(data?.moviesCountBySearch/MOVIESPERPAGE));
-    console.log(data)
   },[data])
 
-  console.log("data" ,data)
 
     
-  
   const handleChange = (event: any) => {
     setSearchFilter(event.target.value);
   };
@@ -76,7 +71,6 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
         setSearchText("")
       }
     };
-    
     
     //Debounce to wait the search
     const debounceHandler = useMemo(() => {

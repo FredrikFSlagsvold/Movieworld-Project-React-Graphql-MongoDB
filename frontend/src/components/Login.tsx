@@ -9,14 +9,13 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState(''); 
-    const [isLoggedIn, setIsLoggedIn] = useState(false); 
     const navigate = useNavigate();
 
 
     const LOGIN_MUTATION = gql`
     query Query (
-    $userName: String
-    $password:String
+    $userName: String!
+    $password:String!
   ) {
     login( 
       userName: $userName,
@@ -31,22 +30,20 @@ const Login = () => {
   }
 `;
 
-    console.log(sessionStorage.getItem("isLoggedIn") === "true")
-
   const {data} = useQuery(LOGIN_MUTATION, {
     variables: {
       userName: userName,
       password: password
   }})
 
+
+
   function checkUser(){
-    console.log("Du har trykket login", data.login.length)
       if(data.login.length){
-        sessionStorage.setItem("isLoggedIn", "true")  
-        setIsLoggedIn(true)
-        console.log("Du er logget inn")
+        sessionStorage.setItem("isLoggedIn", "true")
+        sessionStorage.setItem("userID", data.login[0].id)  
         navigate("/");
-        window.location.reload();
+        // window.location.reload();
       }else{
         sessionStorage.setItem("isLoggedIn", "false")
         console.log("Feil brukernavn eller passord")
@@ -56,6 +53,7 @@ const Login = () => {
   function logout(){
      sessionStorage.setItem("isLoggedIn", "false")
   }
+
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>

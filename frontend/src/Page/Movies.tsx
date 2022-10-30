@@ -38,7 +38,6 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
 
   const nav = useNavigate();
 
-    console.log(offset, filter, limit, text)
 
     const {loading, error, data } = useQuery(MovieFeed, {
         variables: {offset: offset, limit: limit, filter: filter, text: text},
@@ -54,7 +53,7 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
     //     }
     //     }
 
-    console.log("data", data)
+
     return (
         <div style={{display: 'flex',
         flexWrap: 'wrap',
