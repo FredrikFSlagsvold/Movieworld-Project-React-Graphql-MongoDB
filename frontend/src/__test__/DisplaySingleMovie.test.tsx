@@ -1,7 +1,6 @@
 import renderer from 'react-test-renderer';
 import DisplaySingleMovie from '../components/DisplaySingleMovie';
-
-
+import "@testing-library/jest-dom";
 
 it('renders when ', () => {
   const tree = renderer.create(<DisplaySingleMovie poster_path="/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg" original_language="English" title="Godzilla vs. Kong" runtime={113} genres={["Action"]}/>).toJSON()
