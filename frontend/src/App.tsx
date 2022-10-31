@@ -6,9 +6,9 @@ import DisplayMovie from './components/DisplayMovie';
 import DisplayUsers from './components/DisplayUsers';
 import Header from './components/Header';
 import Login from './components/Login';
-// import Register from './components/Register';
 import LikedMovies from './components/LikedMovies';
 import SearchField from './components/SearchField';
+import CreateUser from './CreateUser';
 
 
 
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Navigate replace to="/login" />} /> */}
             <Route path='/login' element={<Login/>} />
-            {/* <Route path='/register' element={<Register/>} /> */}
+            <Route path='/register' element={<CreateUser/>} />
             <Route element={<ProtectedRoutes />}> 
               <Route path="/displayUsers" element={<DisplayUsers/>} />
               <Route path="/" element={<HomePage/>}/>
