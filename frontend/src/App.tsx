@@ -12,7 +12,7 @@ function App() {
   return (
     <>
     <div>
-      <Header />
+      {sessionStorage.getItem("isLoggedIn") === "true" ? <Header/> : <></>}
         <Routes>
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<CreateUser/>} />

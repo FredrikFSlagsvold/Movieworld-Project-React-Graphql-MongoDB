@@ -47,10 +47,6 @@ const Login = () => {
       }
   }
 
-  function logout(){
-     sessionStorage.setItem("isLoggedIn", "false")
-  }
-
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -104,12 +100,6 @@ const Login = () => {
      Create new account
         </Button>
 
-        <Button
-        variant="contained"
-        onClick={logout}>
-          
-          Logout
-        </Button>
     </Box>
   )
     
