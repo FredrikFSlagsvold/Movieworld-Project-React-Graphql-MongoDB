@@ -4,8 +4,6 @@ import { TextField, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState(''); 

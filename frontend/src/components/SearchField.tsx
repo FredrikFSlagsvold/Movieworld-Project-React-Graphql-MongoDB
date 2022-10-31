@@ -17,7 +17,6 @@ type SearchProps ={
   filter: String
 }
 
-
 const FILTER = [
   { 
     value: "Movie",
