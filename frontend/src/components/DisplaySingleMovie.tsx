@@ -26,7 +26,8 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
         height: 320,
         backgroundColor: "white",
         fontFamily: "Verdana, sans-serif, Areal",
-        fontSize:"12px"
+        fontSize:"12px",
+        padding: "24px"
     }}>
         <img src={"https://image.tmdb.org/t/p/original/"+ poster_path} width="190px" height="284.8px"/>
             <div style={{textAlign:"center"}}>

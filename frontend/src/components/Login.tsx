@@ -48,7 +48,7 @@ const Login = () => {
         setIsLoggedIn(true);
         setUserID(data.login[0].id);
         navigate("/");
-        // window.location.reload();
+        window.location.reload();
       }else{
         setIsLoggedIn(false);
         console.log("Feil brukernavn eller passord")
