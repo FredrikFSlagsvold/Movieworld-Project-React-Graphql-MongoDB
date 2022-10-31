@@ -43,7 +43,7 @@ const Login = () => {
         sessionStorage.setItem("isLoggedIn", "true")
         sessionStorage.setItem("userID", data.login[0].id)  
         navigate("/");
-        // window.location.reload();
+        window.location.reload();
       }else{
         sessionStorage.setItem("isLoggedIn", "false")
         console.log("Feil brukernavn eller passord")
