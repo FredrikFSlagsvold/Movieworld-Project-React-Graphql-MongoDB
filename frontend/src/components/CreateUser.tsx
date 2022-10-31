@@ -33,23 +33,11 @@ type UserProps= {
   }
   `;
 
-const REIGSTER_PEOPLE = gql`
-    mutation Create($firstName: String, $lastName: String){
-    people(firstName: $firstName, lastName: $lastName){
-        firstName
-        lastName
-    } 
-}`
-
 export default function CreateUser() {
     const[firstName, setFirstName] = useState("")
     const[lastName, setLastName] = useState("")
     const[password, setPassword] = useState("")
     const[userName, setUserName] = useState("")
-
-    const[addPeople, {data, loading, error}] = useMutation(REIGSTER_PEOPLE, {
-        variables: { firstName: firstName, lastName: lastName }
-    })
 
   const [signup] = useMutation<
       { user: UserProps}

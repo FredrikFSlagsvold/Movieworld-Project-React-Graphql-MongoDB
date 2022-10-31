@@ -15,8 +15,8 @@ export default function HomePage() {
     return (
         <div>
             <SearchField searchText={searchText} filter={searchFilter} setSearchFilter={setSearchFilter} setSearchText={setSearchText} setNumberOfPages={setNumberOfPages}/>
-            <PaginationComponent moviesPerPage={MOVIESPERPAGE} pages={numberOfPages} setOffset={setOffset}/>
             <Movies limit={MOVIESPERPAGE} offset={offset} text={searchText} filter={searchFilter}/>
+            <PaginationComponent moviesPerPage={MOVIESPERPAGE} pages={numberOfPages} setOffset={setOffset}/>
         </div>
     )
 }
