@@ -5,7 +5,7 @@ import PaginationComponent from "../components/PaginationComponent";
 import SearchField from "../components/SearchField";
 import Movies from "./Movies";
 
-const MOVIESPERPAGE = 10
+export const MOVIESPERPAGE = 10
 
 export default function HomePage() {
     const [searchFilter, setSearchFilter] = useState("Movie")
@@ -14,7 +14,7 @@ export default function HomePage() {
     const [offset, setOffset] = useState(0)
     
     return (
-        <div>
+        <div data-testid="homePage">
             <SearchField searchText={searchText} filter={searchFilter} setSearchFilter={setSearchFilter} setSearchText={setSearchText} setNumberOfPages={setNumberOfPages}/>
             <PaginationComponent moviesPerPage={MOVIESPERPAGE} pages={numberOfPages} setOffset={setOffset}/>
             <Movies limit={MOVIESPERPAGE} offset={offset} text={searchText} filter={searchFilter}/>
