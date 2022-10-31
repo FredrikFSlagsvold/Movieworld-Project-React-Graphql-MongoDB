@@ -3,6 +3,8 @@ import {gql, useQuery} from "@apollo/client";
 import { TextField, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { isLoggedInAtom, userIDAtom } from "../shared/globalState";
 
 
 
@@ -37,21 +39,24 @@ const Login = () => {
   }})
 
 
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
+  const [userID, setUserID] = useRecoilState(userIDAtom);
+
 
   function checkUser(){
       if(data.login.length){
-        sessionStorage.setItem("isLoggedIn", "true")
-        sessionStorage.setItem("userID", data.login[0].id)  
+        setIsLoggedIn(true);
+        setUserID(data.login[0].id);
         navigate("/");
         // window.location.reload();
       }else{
-        sessionStorage.setItem("isLoggedIn", "false")
+        setIsLoggedIn(false);
         console.log("Feil brukernavn eller passord")
       }
   }
 
   function logout(){
-     sessionStorage.setItem("isLoggedIn", "false")
+    setIsLoggedIn(false);
   }
 
 

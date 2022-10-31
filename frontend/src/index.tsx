@@ -16,7 +16,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-        <App />
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
     </ApolloProvider>
   </BrowserRouter>
 );

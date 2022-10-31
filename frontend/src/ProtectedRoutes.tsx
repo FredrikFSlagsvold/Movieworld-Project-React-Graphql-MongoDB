@@ -1,8 +1,12 @@
 import { Outlet } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import Login from "./components/Login";
+import { isLoggedInAtom } from "./shared/globalState";
+
+const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
 
 const useAuth = () => {
-    const user = {loggedIn: sessionStorage.getItem("isLoggedIn") === "true"}
+    const user = {loggedIn: isLoggedIn === true}
     return user && user.loggedIn;
 
 }
