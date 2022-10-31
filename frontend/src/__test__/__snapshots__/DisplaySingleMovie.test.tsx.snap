@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders when  1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "white",
+      "fontFamily": "Verdana, sans-serif, Areal",
+      "fontSize": "12px",
+      "height": 320,
+      "width": 190,
+    }
+  }
+>
+  <img
+    height="284.8px"
+    src="https://image.tmdb.org/t/p/original//pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg"
+    width="190px"
+  />
+  <div
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    <div>
+      <strong>
+        Godzilla vs. Kong
+      </strong>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    <div>
+      Action
+    </div>
+  </div>
+</div>
+`;
