@@ -3,6 +3,7 @@ import { useState } from "react";
 import PaginationComponent from "../components/PaginationComponent";
 import SearchField from "../components/SearchField";
 import Movies from "./Movies";
+import { Box } from "@mui/system";
 
 export const MOVIESPERPAGE = 10
 
@@ -13,7 +14,12 @@ export default function HomePage() {
     const [offset, setOffset] = useState(0)
     
     return (
-        <div data-testid="homePage">
+        <div 
+        data-testid="homePage" 
+        style={
+            {display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center'}}>
             <SearchField searchText={searchText} filter={searchFilter} setSearchFilter={setSearchFilter} setSearchText={setSearchText} setNumberOfPages={setNumberOfPages}/>
             <Movies limit={MOVIESPERPAGE} offset={offset} text={searchText} filter={searchFilter}/>
             <PaginationComponent moviesPerPage={MOVIESPERPAGE} pages={numberOfPages} setOffset={setOffset}/>

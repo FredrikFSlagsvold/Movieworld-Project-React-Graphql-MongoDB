@@ -73,7 +73,6 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
           <form data-testid="searchField">
               <TextField
                 select
-                label="Select"
                 onChange={handleChange}
                 helperText="Select category"
                 value={filter}
