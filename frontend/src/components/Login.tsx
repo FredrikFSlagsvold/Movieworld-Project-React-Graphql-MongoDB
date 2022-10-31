@@ -44,7 +44,6 @@ const Login = () => {
         window.location.reload();
       }else{
         sessionStorage.setItem("isLoggedIn", "false")
-        console.log("Feil brukernavn eller passord")
       }
   }
 

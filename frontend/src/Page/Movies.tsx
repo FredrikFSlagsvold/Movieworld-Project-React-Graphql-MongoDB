@@ -56,7 +56,6 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
                 <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
                   }} 
-                  onMouseEnter={()=>console.log("heiii")}
                   >
                 <DisplaySingleMovie poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
                 </div>

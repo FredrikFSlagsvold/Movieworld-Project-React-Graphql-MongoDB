@@ -74,7 +74,6 @@ export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
     useEffect(()=>{
       if(likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle).length ){
         setClicked(true)
-        console.log("denne filmen er likt", likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle))
       }
     },[likedMovies])
 
