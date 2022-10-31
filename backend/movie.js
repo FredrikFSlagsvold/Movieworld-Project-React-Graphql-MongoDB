@@ -153,23 +153,6 @@ const schema = new GraphQLSchema({
           return MovieModel.find().skip(args.skip).limit(args.limit).exec();
         },
       },
-      moviesBySearch: {
-        type: GraphQLList(MovieType),
-        args: {
-          filter: { type: GraphQLString },
-          text: { type: GraphQLString },
-        },
-        resolve: (root, args, context, info) => {
-          if (args.filter === "Movie") {
-            return MovieModel.find({ title: { $regex: args.text } }).exec();
-          } else if (args.filter === "Actor") {
-            return MovieModel.find({ "cast.name": { $regex: args.text } });
-          } else if (args.filter === "Category") {
-            return MovieModel.find({ genres: { $regex: args.text } });
-          }
-        },
-      },
-
       movieByName: {
         type: GraphQLList(MovieType),
         args: {
@@ -221,11 +204,11 @@ const schema = new GraphQLSchema({
 			},
 			resolve: (root, args, context, info) => {
 			  if (args.filter === "Movie") {
-				return MovieModel.find({ title: { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+				return MovieModel.find({ title: { $regex: args.text, $options: 'i' } }).skip(args.offset).limit(args.limit).exec();
 			  } else if (args.filter === "Actor") {
-				return MovieModel.find({ "cast.name": { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+				return MovieModel.find({ "cast.name": { $regex: args.text, $options: 'i'} }).skip(args.offset).limit(args.limit).exec();
 			  } else if (args.filter === "Category") {
-				return MovieModel.find({ genres: { $regex: args.text } }).skip(args.offset).limit(args.limit).exec();
+				return MovieModel.find({ genres: { $regex: args.text, $options: 'i' } }).skip(args.offset).limit(args.limit).exec();
 			  }
 			},
 		  },

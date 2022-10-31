@@ -52,24 +52,16 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
   },[data])
 
 
-    
+  //Search on Movie, Actor or Category
   const handleChange = (event: any) => {
     setSearchFilter(event.target.value);
   };
 
+
     //Every title starts with a big letter, this function makes sure the search is on correct form
     const changeHandler = (event: any) => {
       const search = event.target.value;
-      if (search !== ""){
-        const words = search.toLowerCase().split(" ");
-        
-        for (let i = 0; i < words.length; i++) {
-          words[i] = words[i][0].toUpperCase() + words[i].substring(1);
-        }
-        setSearchText(words.join(" "))
-      }else{
-        setSearchText("")
-      }
+      setSearchText(search)
     };
     
     //Debounce to wait the search
