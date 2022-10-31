@@ -1,17 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Login from "./components/Login";
 import { isLoggedInAtom } from "./shared/globalState";
 
-const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
-
-const useAuth = () => {
-    const user = {loggedIn: isLoggedIn === true}
+const useAuth = (isLoggedInProp: Boolean) => {
+    const user = {loggedIn: isLoggedInProp === true}
     return user && user.loggedIn;
 
 }
 const ProtectedRoutes = () => {
-    const isAuth = useAuth(); 
+    const isLoggedIn = useRecoilValue(isLoggedInAtom);
+    const isAuth = useAuth(isLoggedIn); 
     return( isAuth ? <Outlet /> : <Login /> 
       
     )
