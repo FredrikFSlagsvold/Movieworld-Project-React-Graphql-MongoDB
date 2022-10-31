@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DisplayLikedMovie from "./DisplayLikedMovie";
 import { ApolloClient } from "@apollo/client";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userIDAtom } from "../shared/globalState";
 
 
@@ -39,11 +39,12 @@ export function GetLikedMovies(userID: String | null){
 
 }
 
+// const [userID, setUserID] = useRecoilState(userIDAtom);
 
 export default function LikedMovies(){
-  const [userID, setUserID] = useRecoilState(userIDAtom);
-  const likedMovies = GetLikedMovies(userID);
-  
+  const userID = useRecoilValue(userIDAtom);
+  const likedMovies = GetLikedMovies(useRecoilValue(userIDAtom));
+  console.log('userID: ', userID)
 
     return (
     <div>  

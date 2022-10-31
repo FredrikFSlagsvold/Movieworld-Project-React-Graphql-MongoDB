@@ -7,5 +7,5 @@ export const isLoggedInAtom = atom({
 
 export const userIDAtom = atom({
     key: 'userID-atom',
-    default: ''
+    default: 'defaultUserID'
 })

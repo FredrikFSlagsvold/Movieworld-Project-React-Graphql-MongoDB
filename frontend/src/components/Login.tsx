@@ -44,11 +44,13 @@ const Login = () => {
 
 
   function checkUser(){
+    console.log('UserID: ', data.login[0].id)
+    console.log('isLoggedIn: ', isLoggedIn)
       if(data.login.length){
         setIsLoggedIn(true);
         setUserID(data.login[0].id);
         navigate("/");
-        window.location.reload();
+        //window.location.reload();
       }else{
         setIsLoggedIn(false);
         console.log("Feil brukernavn eller passord")

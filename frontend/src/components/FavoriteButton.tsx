@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {GetLikedMovies} from "./LikedMovies"
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userIDAtom } from "../shared/globalState";
 
 //TODO FLYTT DENNE INN
 type LikedMoviesProps = {
@@ -64,13 +66,13 @@ mutation Mutation (
   }
   `;
 
-  
-
 export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
-    const userID = sessionStorage.getItem("userID") 
     const [clicked, setClicked] = useState(false);
+    const userID = useRecoilValue(userIDAtom);
     
     const likedMovies = GetLikedMovies(userID)
+
+    console.log('UserID: ', userID)
 
     useEffect(()=>{
       if(likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle).length ){
