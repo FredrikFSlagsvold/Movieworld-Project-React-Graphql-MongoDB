@@ -61,8 +61,6 @@ export default function DisplayMovie() {
   const { movieID } = useParams<string>();
   const nav = useNavigate();
 
-
-
   const { loading, error, data } = useQuery(GET_MOVIE, {
     variables: { id: parseInt(movieID!) },
   });
@@ -85,15 +83,6 @@ export default function DisplayMovie() {
     return <p>Error</p>;
   }
 
-  /*
-            <div className="href" style={{margin: "5px 320px 5px"}}>
-                <p><EventIcon data-testid="eventIcon"></EventIcon>{year}</p>
-                <p><EmojiPeopleIcon data-testid="emojiPeopleIcon"></EmojiPeopleIcon> Director: {data.movieByID.director}</p>
-                <p><CategoryIcon data-testid="categoryIcon"></CategoryIcon>Category: {data.movieByID.listed_in}</p>
-                <EventIcon data-testid="eventIcon"></EventIcon>
-                <MovieIcon data-testid="movieIcon"></MovieIcon> 
-            </div>
-            */
 
   return (
     <div style={{

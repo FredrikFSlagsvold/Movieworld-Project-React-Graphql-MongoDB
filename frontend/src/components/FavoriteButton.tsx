@@ -65,7 +65,6 @@ mutation Mutation (
   `;
 
   
-
 export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
     const userID = sessionStorage.getItem("userID") 
     const [clicked, setClicked] = useState(false);

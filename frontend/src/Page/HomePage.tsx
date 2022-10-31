@@ -1,6 +1,5 @@
 
-import { gql, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PaginationComponent from "../components/PaginationComponent";
 import SearchField from "../components/SearchField";
 import Movies from "./Movies";

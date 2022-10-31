@@ -33,19 +33,6 @@ type UserProps= {
   }
   `;
 
-
-//     const CHECK_DATABASE = gql`
-//     query Query (
-//     $userName: String
-//   ) {
-//     userByUserName( 
-//       userName: $userName,
-//     ) {
-//       userName
-//     }
-//   }
-// `;
-
 const REIGSTER_PEOPLE = gql`
     mutation Create($firstName: String, $lastName: String){
     people(firstName: $firstName, lastName: $lastName){

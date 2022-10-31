@@ -93,7 +93,7 @@ const Login = () => {
                 variant="contained"
                 onClick={checkUser}
                 sx={{ m: 1 }}
-                data-testid="loginButton" //legges inn for å kunne bruke knappen under end to end testing.
+                data-testid="loginButton" 
               >
               login
             </Button>

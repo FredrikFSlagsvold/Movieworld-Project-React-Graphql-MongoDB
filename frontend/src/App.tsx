@@ -1,16 +1,12 @@
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
-
 import HomePage from './Page/HomePage';
 import DisplayMovie from './components/DisplayMovie';
 import DisplayUsers from './components/DisplayUsers';
 import Header from './components/Header';
 import Login from './components/Login';
 import LikedMovies from './components/LikedMovies';
-import SearchField from './components/SearchField';
-import CreateUser from './CreateUser';
-
-
+import CreateUser from './components/CreateUser';
 
 
 function App() {
@@ -19,7 +15,6 @@ function App() {
     <div>
       <Header />
         <Routes>
-          {/* <Route path="/" element={<Navigate replace to="/login" />} /> */}
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<CreateUser/>} />
             <Route element={<ProtectedRoutes />}> 
