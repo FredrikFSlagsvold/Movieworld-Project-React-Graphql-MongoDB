@@ -11,7 +11,7 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
     let genresString = genres.join(', ');
 
     return <>
-    <div style={{
+    <div data-testid="singleMovieDiv" style={{
         width: 190,
         height: 320,
         backgroundColor: "white",

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
+import { MOVIESPERPAGE } from "../Page/HomePage";
 
 
 type SearchProps ={
@@ -36,7 +37,6 @@ const GetNumberOfResults = gql`
     query Query($filter: String, $text: String){
       moviesCountBySearch(filter: $filter, text: $text)
     }`
-const MOVIESPERPAGE = 10
 
 //TODO MOVIECOUNT QUERY MÅ TA INN PARAMETERE OGSÅ
 
@@ -71,7 +71,7 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
    
 
     return (
-          <form>
+          <form data-testid="searchField">
             <input className="searchBar"
             onChange={debounceHandler}
             placeholder="Search"
@@ -85,7 +85,7 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
             helperText="Please select your category"
             >
             {FILTER.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem data-testid="filterOption" key={option.value} value={option.value}>
                 {option.icon} {option.value}
               </MenuItem>
             ))}
