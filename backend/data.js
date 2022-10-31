@@ -127,12 +127,6 @@ const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: "Query",
     fields: {
-      Movies: {
-        type: GraphQLList(MovieType),
-        resolve: (root, args, context, info) => {
-          return MovieModel.find().exec();
-        },
-      },
       movieByID: {
         type: MovieType,
         args: {
@@ -140,16 +134,6 @@ const schema = new GraphQLSchema({
         },
         resolve: (root, args, context, info) => {
           return MovieModel.findOne({ id: args.id }).exec();
-        },
-      },
-      moviesByLimit: {
-        type: GraphQLList(MovieType),
-        args: {
-          limit: { type: GraphQLInt },
-          skip: { type: GraphQLInt },
-        },
-        resolve: (root, args, context, info) => {
-          return MovieModel.find().skip(args.skip).limit(args.limit).exec();
         },
       },
       movieByName: {
@@ -162,18 +146,6 @@ const schema = new GraphQLSchema({
         },
       },
 
-      moviesPagination: {
-        type: GraphQLList(MovieType),
-        args: {
-          skip: { type: GraphQLInt },
-          limit: { type: GraphQLInt },
-        },
-        type: new GraphQLList(MovieType),
-        resolve: (root, args, context, info) => {
-          return MovieModel.find().skip(args.skip).limit(args.limit).exec();
-        },
-      },
-
       movieListByIDs: {
         type: GraphQLList(MovieType),
         args: {
@@ -182,13 +154,6 @@ const schema = new GraphQLSchema({
         type: new GraphQLList(MovieType),
         resolve: (root, args, context, info) => {
           return MovieModel.find({ id: { $in: args.ids } }).exec();
-        },
-      },
-
-      movieCount: {
-        type: GraphQLInt,
-        resolve: (root, args, context, info) => {
-          return MovieModel.countDocuments();
         },
       },
 
@@ -242,13 +207,6 @@ const schema = new GraphQLSchema({
           } else if (args.filter === "Category") {
             return MovieModel.countDocuments({ genres: { $regex: args.text } });
           }
-        },
-      },
-
-      User: {
-        type: GraphQLList(UserType),
-        resolve: (root, args, context, info) => {
-          return UserModel.find;
         },
       },
 
