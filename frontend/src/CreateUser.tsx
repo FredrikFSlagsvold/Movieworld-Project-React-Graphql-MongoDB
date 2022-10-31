@@ -54,7 +54,7 @@ const REIGSTER_PEOPLE = gql`
     } 
 }`
 
-export default function Register() {
+export default function CreateUser() {
     const[firstName, setFirstName] = useState("")
     const[lastName, setLastName] = useState("")
     const[password, setPassword] = useState("")
@@ -127,4 +127,6 @@ export default function Register() {
         </Button>
           </Box>
       )
+    
+
 }
