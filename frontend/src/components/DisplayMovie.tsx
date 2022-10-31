@@ -78,15 +78,12 @@ export default function DisplayMovie() {
     fetchSimilar({
       variables: { ids: data.movieByID.similar.map((data: any) => parseInt(data.id)) },
     });
-  }, [data]);
+  }, [data]);  
 
   if (loading) return <p>Loading...</p>;
   if (error) {
     return <p>Error</p>;
   }
-   
-  // console.log(data);
-  // console.log("genres: " + data.movieByID.genres)
 
   /*
             <div className="href" style={{margin: "5px 320px 5px"}}>
@@ -100,8 +97,8 @@ export default function DisplayMovie() {
 
   return (
     <div style={{
-      fontFamily: "Verdana, sans-serif, Areal"
-    }}>
+      fontFamily: "Verdana, sans-serif, Areal",
+    }} data-testID="testIDforAll">
       <div
         style={{
           backgroundColor: "white",
