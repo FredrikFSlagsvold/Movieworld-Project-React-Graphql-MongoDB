@@ -15,9 +15,7 @@ test("First snapshot test", () => {
     const component = renderer.create(
         <BrowserRouter>
             <ApolloProvider client={client}>
-                <RecoilRoot>
                     <App />
-                </RecoilRoot>
             </ApolloProvider>
          </BrowserRouter>
     );
