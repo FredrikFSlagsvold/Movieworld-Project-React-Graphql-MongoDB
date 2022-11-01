@@ -6,7 +6,7 @@ import SearchField from "../components/SearchField";
 import { filterAtom, sortAtom } from "../shared/globalState";
 import Movies from "./Movies";
 
-export const MOVIESPERPAGE = 12
+export const MOVIESPERPAGE = 21
 
 export default function HomePage() {
     const [searchFilter, setSearchFilter] = useRecoilState(filterAtom)
