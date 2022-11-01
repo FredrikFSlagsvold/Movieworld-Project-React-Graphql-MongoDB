@@ -117,6 +117,7 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
     return (
           <form data-testid="searchField">
               <TextField
+                id="CategoryField"
                 select
                 onChange={handleCategoryChange}
                 helperText="Search by"
