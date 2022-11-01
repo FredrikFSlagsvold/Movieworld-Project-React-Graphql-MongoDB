@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {gql, useQuery} from "@apollo/client";
-import { TextField, Box, Button, Typography, Alert } from "@mui/material";
+import { TextField, Box, Button, Typography, Alert, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -52,8 +52,13 @@ const Login = () => {
 
   return (
     <>
+    <div className="href">
+      <div className="link">
+        <p>M O V I E W O R L D</p>
+        </div>
+    </div>
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography variant="h4" sx={{ p: 1 }}> 
+        <Typography variant="h4" sx={{ p: 1 }} fontFamily="Verdana, sans-serif, Areal"> 
         Login
         </Typography>
       
@@ -87,8 +92,8 @@ const Login = () => {
             disabled={userName === "" || password === ""}
             variant="contained"
             onClick={checkUser}
-            sx={{ m: 1 }}
-            data-testid="loginButton" 
+            sx={{ m: 1, backgroundColor: '#8b6363', hoverBackgroundColor: 'gray' }}
+            data-testid="loginButton"
           >
           login
         </Button>
@@ -96,7 +101,7 @@ const Login = () => {
         <Button
         component={Link} to="/register"
           variant="contained"
-          sx={{ m: 1 }}>
+          sx={{ m: 1, backgroundColor: '#8b6363' }}>
             Create new account
         </Button>
         {isWrongUser && <Alert severity="info">Wrong username or password</Alert>
