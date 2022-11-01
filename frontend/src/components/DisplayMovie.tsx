@@ -1,7 +1,4 @@
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import { styled } from "@mui/material/styles";
-import { Box} from "@mui/material";
-import "./header.css";
 import { useParams, useNavigate, Link} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
