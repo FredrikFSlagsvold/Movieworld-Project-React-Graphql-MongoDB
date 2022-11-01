@@ -75,7 +75,7 @@ export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
       if(likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle).length ){
         setClicked(true)
       }
-    },[likedMovies])
+    },[likedMovies, movieTitle])
 
 
     const [addMovie] = useMutation<{ user: UserProps}>( addFavoriteMutation, {
@@ -95,13 +95,13 @@ export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
     return (
 
 <>         {clicked ? <Box> 
-        <IconButton data-testid="FavoriteButton" onClick={handleClick}>
-        <StarIcon></StarIcon> 
-        </IconButton> Remove from favorites 
-        </Box> :  <Box> 
-        <IconButton data-testid="FavoriteButton" onClick={handleClick}>
-        <StarBorderIcon></StarBorderIcon> 
-        </IconButton> Add to favorites
+                    <IconButton data-testid="FavoriteButton" onClick={handleClick}>
+                        <StarIcon></StarIcon> 
+                    </IconButton> Remove from favorites 
+              </Box> :  <Box> 
+                    <IconButton data-testid="FavoriteButton" onClick={handleClick}>
+                        <StarBorderIcon></StarBorderIcon> 
+                    </IconButton> Add to favorites
         </Box>}</>
     )
 }

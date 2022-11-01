@@ -18,16 +18,21 @@ type DisplaySingleMovieProps ={
     runtime: number;
     genres: [String]; 
     id: String
+    vote_average: number;
+    release_date: String
 }
 
-    const MovieFeed = gql`
+    export const MovieFeed = gql`
     query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
         moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
             id
             title
             genres
             revenue
+            runtime
             poster_path
+            vote_average
+            release_date
             directors{
                 name
             }
@@ -35,7 +40,7 @@ type DisplaySingleMovieProps ={
                 name
             }
         }
-    }`; 
+}`; 
 
 export default function Movies( {offset, limit, filter, text, sort, sortType}: MovieProps) {
 
@@ -50,18 +55,18 @@ export default function Movies( {offset, limit, filter, text, sort, sortType}: M
     if (error) return <p>Error...</p>;
 
     return (
-        <div style={{display: 'flex',
+        <div data-testid="moviePage" style={{display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         width: '100%'
         }}>
-            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) => { return (
+            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id, vote_average, release_date }: DisplaySingleMovieProps) => { return (
                     
                 <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
                   }} 
                   >
-                <DisplaySingleMovie poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
+                <DisplaySingleMovie poster_path={poster_path} release_date={release_date} vote_average={vote_average} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
                 </div>
             )})}
         </div>

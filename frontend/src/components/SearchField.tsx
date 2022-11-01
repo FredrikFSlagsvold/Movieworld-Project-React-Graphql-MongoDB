@@ -12,7 +12,6 @@ import CategoryIcon from '@mui/icons-material/Category';
 
 
 
-
 type SearchProps ={
   setSearchText: React.Dispatch<React.SetStateAction<string>>
   setSearchFilter: React.Dispatch<React.SetStateAction<string>>
@@ -72,15 +71,14 @@ const GetNumberOfResults = gql`
 //TODO MOVIECOUNT QUERY MÅ TA INN PARAMETERE OGSÅ
 
 export default function SearchField({setSearchFilter, setSearchText, searchText, setNumberOfPages, filter, setSortType, sortType, setOffset, setSort}: SearchProps){
-  const nav = useNavigate();
   
-  const {loading, error, data} = useQuery(GetNumberOfResults, {
+  const {data} = useQuery(GetNumberOfResults, {
     variables: {filter: filter, text: searchText}
   });
 
   useEffect(()=>{
     setNumberOfPages(Math.ceil(data?.moviesCountBySearch/MOVIESPERPAGE));
-  },[data])
+  },[data, setNumberOfPages])
 
 
   //Search on Movie, Actor or Category

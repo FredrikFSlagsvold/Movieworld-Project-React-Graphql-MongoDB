@@ -13,7 +13,9 @@ type DisplaySingleMovieProps ={
     title: String;
     runtime: number;
     genres: [String]; 
-    id: String
+    id: String,
+    vote_average: number,
+    release_date: String
 }
 
 const GET_MOVIEBYNAME = gql`
@@ -29,28 +31,27 @@ movieByName(
   poster_path
   original_language
   genres
+  vote_average
+  release_date
 }
 }
 `;
 
 export default function DisplayLikedMovie({movieName}: DisplayLikedMovieProps){
     const nav = useNavigate();
-
-
-    const { loading, error, data } = useQuery(GET_MOVIEBYNAME, {
+    const {data } = useQuery(GET_MOVIEBYNAME, {
         variables: { title: movieName },
       });
 
-
     return (
         <>
-            {data && data.movieByName.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) => { return (
+            {data && data.movieByName.map(({ title, genres, poster_path, runtime, original_language, id, vote_average, release_date }: DisplaySingleMovieProps) => { return (
                     
                 <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
                   }} 
                   >
-                <DisplaySingleMovie poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
+                <DisplaySingleMovie release_date={release_date} vote_average={vote_average} poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
                 </div>
             )})}
         </>
