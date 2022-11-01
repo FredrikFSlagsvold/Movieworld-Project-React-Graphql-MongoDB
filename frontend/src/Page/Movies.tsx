@@ -1,6 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import DisplaySingleMovie from "../components/DisplaySingleMovie";
+import { MovieFeed } from "../utils/Queries";
 
 type MovieProps = {
     limit: number,
@@ -22,31 +23,9 @@ type DisplaySingleMovieProps ={
     release_date: String
 }
 
-    export const MovieFeed = gql`
-    query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
-        moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
-            id
-            title
-            genres
-            revenue
-            runtime
-            poster_path
-            vote_average
-            release_date
-            directors{
-                name
-            }
-            cast{
-                name
-            }
-        }
-}`; 
 
-export default function Movies( {offset, limit, filter, text, sort, sortType}: MovieProps) {
-
-  const nav = useNavigate();
-    // console.log("offset, limit, filter, text, sort, sortType", offset, limit, filter, text, sort, sortType)
-
+export default function Movies({offset, limit, filter, text, sort, sortType}: MovieProps) {
+    const nav = useNavigate();
     const {loading, error, data } = useQuery(MovieFeed, {
         variables: {offset: offset, limit: limit, filter: filter, text: text, sort: sort, sortType: sortType},
     });
@@ -60,15 +39,15 @@ export default function Movies( {offset, limit, filter, text, sort, sortType}: M
         justifyContent: 'center',
         width: '100%'
         }}>
-            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id, vote_average, release_date }: DisplaySingleMovieProps) => { return (
-                    
-                <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id, vote_average, release_date }: DisplaySingleMovieProps) => { 
+                return (  
+                    <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
-                  }} 
-                  >
-                <DisplaySingleMovie poster_path={poster_path} release_date={release_date} vote_average={vote_average} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
-                </div>
-            )})}
+                     }}>
+                        <DisplaySingleMovie poster_path={poster_path} release_date={release_date} vote_average={vote_average} title={title} runtime={runtime} genres={genres}/>
+                    </div>
+                )
+            })}
         </div>
     )
 }

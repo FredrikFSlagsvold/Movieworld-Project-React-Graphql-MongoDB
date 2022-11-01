@@ -2,8 +2,8 @@ import HomePage from "./HomePage";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { MockedProvider} from '@apollo/client/testing';
-import { MovieFeed} from './Movies';
 import { RecoilRoot } from "recoil";
+import { MovieFeed } from "../utils/Queries";
 
 const movieMocks =[{
     request: {

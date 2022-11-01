@@ -1,9 +1,10 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Box, IconButton} from "@mui/material";
 import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {GetLikedMovies} from "./LikedMovies"
+import { addFavoriteMutation, removeFavoriteMutation } from "../utils/Queries";
 
 type LikedMoviesProps = {
   movieName: String
@@ -21,47 +22,7 @@ type FavoriteButtonProps ={
     movieTitle: string;
 }
 
-const addFavoriteMutation = gql`
-mutation Mutation (
-  	$id:ID
-  	$movieName: String
-  ) {
-    AddMovie( 
-      id:$id,
-      movieName: $movieName
-    ) {
-      id
-      firstName
-      lastName
-      password
-      userName
-      likedMovies{
-        movieName
-      }
-    }
-  }
-  `;
 
-  const removeFavoriteMutation = gql`
-  mutation Mutation (
-  	$id:ID
-  	$movieName: String
-  ) {
-    RemoveMovie( 
-      id:$id,
-      movieName: $movieName
-    ) {
-      id
-      firstName
-      lastName
-      password
-      userName
-      likedMovies{
-        movieName
-      }
-    }
-  }
-  `;
 
   
 export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
