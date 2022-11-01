@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { Box, debounce, InputAdornment, MenuItem, TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { MOVIESPERPAGE } from "../Page/HomePage";
-import "../css/searchField.css";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
