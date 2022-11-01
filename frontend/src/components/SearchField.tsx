@@ -6,6 +6,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
 import { MOVIESPERPAGE } from "../Page/HomePage";
 import "../css/searchField.css";
+import MovieIcon from '@mui/icons-material/Movie';
+import Face6Icon from '@mui/icons-material/Face6';
+import CategoryIcon from '@mui/icons-material/Category';
+
 
 
 
@@ -25,17 +29,17 @@ const FILTER = [
   { 
     value: "Movie",
     dbValue: "title",
-    /*icon: <MovieIcon sx={{ color:"#8b6363"}} />*/
+    icon: <MovieIcon sx={{ color:"#8b6363"}} fontSize='inherit'/>
   },
   { 
     value: "Actor",
     dbValue: "cast.name",
-    /*icon: <Face6Icon sx={{ color:"#8b6363"}} />*/
+    icon: <Face6Icon sx={{ color:"#8b6363"}} />
   },
   { 
     value: "Category",
     dbValue: "genres",
-    /*icon: <CategoryIcon sx={{ color:"#8b6363"}} />*/
+    icon: <CategoryIcon sx={{ color:"#8b6363"}} />
   },
 ]
 
@@ -43,6 +47,7 @@ const SORT = [
   {
     value: "New-old",
     sortType: "release_date",
+
   }, 
   {
     value: "Old-new",
@@ -125,11 +130,11 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
                >
             {SORT.map((option) => (
               <MenuItem data-testid="sortOption" key={option.value} value={option.sortType}>
-                {option.value} 
+               {option.value} 
               </MenuItem>
             ))}
           </TextField>
-          
+
               <TextField
                 id="CategoryField"
                 select
@@ -140,7 +145,7 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
                >
               {FILTER.map((option) => (
                 <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
-                {option.value}
+                {option.icon} {option.value}
                 </MenuItem>
                 ))}
                 </TextField>
