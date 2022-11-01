@@ -6,6 +6,8 @@ import { useParams, useNavigate} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
 import FavoriteButton from "./FavoriteButton";
+import { useRecoilValue } from "recoil";
+import { isLoggedInAtom } from "../shared/globalState";
 
 
 
@@ -84,6 +86,7 @@ export default function DisplayMovie() {
   if (error) {
     return <p>Error</p>;
   }
+
 
   /*
             <div className="href" style={{margin: "5px 320px 5px"}}>

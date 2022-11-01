@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import DisplayLikedMovie from "./DisplayLikedMovie";
 import { ApolloClient } from "@apollo/client";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userIDAtom } from "../shared/globalState";
+import { isLoggedInAtom, userIDAtom } from "../shared/globalState";
 
 
 
@@ -45,6 +45,7 @@ export default function LikedMovies(){
   const userID = useRecoilValue(userIDAtom);
   const likedMovies = GetLikedMovies(useRecoilValue(userIDAtom));
   console.log('userID: ', userID)
+  console.log('isLoggedIn: ', useRecoilValue(isLoggedInAtom));
 
     return (
     <div>  
