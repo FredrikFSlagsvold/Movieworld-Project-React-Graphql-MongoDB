@@ -16,7 +16,7 @@ export default function PaginationComponent( { moviesPerPage,pages, setOffset }:
     return (
     <div>
         <Pagination 
-        count={pages} onChange={(handleChange)} siblingCount={2}/>
+        count={pages || 0} onChange={(handleChange)} siblingCount={2}/>
     </div>
     )
 }

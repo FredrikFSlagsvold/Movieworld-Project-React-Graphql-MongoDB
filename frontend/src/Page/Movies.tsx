@@ -41,7 +41,7 @@ export default function Movies({offset, limit, filter, text, sort, sortType}: Mo
         }}>
             {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id, vote_average, release_date }: DisplaySingleMovieProps) => { 
                 return (  
-                    <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    <div key={Number(id)} onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
                      }}>
                         <DisplaySingleMovie poster_path={poster_path} release_date={release_date} vote_average={vote_average} title={title} runtime={runtime} genres={genres}/>
