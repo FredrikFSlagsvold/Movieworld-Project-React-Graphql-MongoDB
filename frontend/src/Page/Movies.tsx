@@ -20,22 +20,22 @@ type DisplaySingleMovieProps ={
     id: String
 }
 
-    const MovieFeed = gql`
-    query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
-        moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
-            id
-            title
-            genres
-            revenue
-            poster_path
-            directors{
-                name
-            }
-            cast{
-                name
-            }
+export const MovieFeed = gql`
+query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
+    moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
+        id
+        title
+        genres
+        revenue
+        poster_path
+        directors{
+            name
         }
-    }`; 
+        cast{
+            name
+        }
+    }
+}`; 
 
 export default function Movies( {offset, limit, filter, text, sort, sortType}: MovieProps) {
 
@@ -50,12 +50,12 @@ export default function Movies( {offset, limit, filter, text, sort, sortType}: M
     if (error) return <p>Error...</p>;
 
     return (
-        <div style={{display: 'flex',
+        <div data-testid="moviePage" style={{display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         width: '100%'
         }}>
-            {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) => { return (
+            {data.moviesBySearch && data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) => { return (
                     
                 <div onClick={()=> nav('/movie/' + id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     e.key === "Enter" && nav('/movie/' + id) 
