@@ -2,6 +2,11 @@ html, body {
     margin: 0;
   }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 .href{
     display: flex;
     justify-content: space-between;
@@ -19,14 +24,8 @@ html, body {
     margin-right: 8px;
 }
 
-.link:link{
-    margin-left: 40px;
-    font-family: 'Verdana, sans-serif, Areal';
-    text-decoration: none;
-}
-
-.link:visited{
-    text-decoration: none;
+.link{
+    margin-left: 8px;
 }
 
 .searchBar{
