@@ -2,10 +2,11 @@ import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import "./header.css";
 import { styled } from "@mui/material/styles";
 import { Box} from "@mui/material";
-import { useParams, useNavigate} from "react-router-dom";
+import { useParams, useNavigate, Link} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
 import FavoriteButton from "./FavoriteButton";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
@@ -88,6 +89,7 @@ export default function DisplayMovie() {
     <div style={{
       fontFamily: "Verdana, sans-serif, Areal",
     }} data-testID="testIDforAll">
+      <Link style={{color:"#8b6363"}} to="/"><ArrowBackIcon></ArrowBackIcon></Link>
       <div
         style={{
           backgroundColor: "white",
