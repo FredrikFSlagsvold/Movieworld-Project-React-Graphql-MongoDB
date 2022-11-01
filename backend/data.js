@@ -13,7 +13,6 @@ const {
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
-const { error } = require("console");
 
 app.use(cors());
 
@@ -145,7 +144,6 @@ const schema = new GraphQLSchema({
           return MovieModel.find({ title: args.title }).exec();
         },
       },
-
       movieListByIDs: {
         type: GraphQLList(MovieType),
         args: {
@@ -156,9 +154,6 @@ const schema = new GraphQLSchema({
           return MovieModel.find({ id: { $in: args.ids } }).exec();
         },
       },
-
-      //filter: Movie === title, Actor === cast.name eller Category === genres, kun en av de tre
-      //sortType: revenue, date og runtime. 
       moviesBySearch: {
         type: GraphQLList(MovieType),
         args: {
@@ -177,7 +172,6 @@ const schema = new GraphQLSchema({
               .exec();
         },
       },
-
       moviesCountBySearch: {
         args: {
           filter: { type: GraphQLString },
@@ -188,7 +182,6 @@ const schema = new GraphQLSchema({
           return MovieModel.countDocuments({[args.filter]: { $regex: args.text, $options: "i" }})
         }
       },
-
       login: {
         type: GraphQLList(UserType),
         args: {
@@ -202,7 +195,6 @@ const schema = new GraphQLSchema({
           }).exec();
         },
       },
-
       userByUserName: {
         type: GraphQLList(UserType),
         args: {
@@ -212,7 +204,6 @@ const schema = new GraphQLSchema({
           return UserModel.find( {userName: args.userName} ).exec();
         },
       },
-
       userByID: {
         type: GraphQLList(UserType),
         args: {
