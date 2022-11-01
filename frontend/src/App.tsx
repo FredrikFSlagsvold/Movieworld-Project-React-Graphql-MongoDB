@@ -17,7 +17,7 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<CreateUser/>} />
             <Route element={<ProtectedRoutes />}> 
-              <Route path="/" element={<HomePage/>}/>
+              <Route path="/" element={<HomePage/>} />
               <Route path="/movie/:movieID" element={<DisplayMovie />}/> 
               <Route path="/liked" element={<LikedMovies/>} />
           </Route>
