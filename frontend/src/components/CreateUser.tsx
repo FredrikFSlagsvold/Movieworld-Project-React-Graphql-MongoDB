@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client"
-import { Box, Typography, TextField, Button } from "@mui/material"
+import { Box, Typography, TextField, Button, Alert } from "@mui/material"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -119,8 +119,7 @@ export default function CreateUser() {
      Go to login page
         </Button>
           </Box>
-         {data?.userByUserName.length === 1 &&
-          <h1>BRUKERNAVNET FINNES ALLEREDE</h1>
+         {data?.userByUserName.length === 1 && <Alert severity="info">This username already exists</Alert>
          }
           </>
       )

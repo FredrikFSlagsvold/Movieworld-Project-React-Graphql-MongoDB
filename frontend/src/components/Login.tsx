@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {gql, useQuery} from "@apollo/client";
-import { TextField, Box, Button, Typography } from "@mui/material";
+import { TextField, Box, Button, Typography, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -99,10 +99,7 @@ const Login = () => {
           sx={{ m: 1 }}>
             Create new account
         </Button>
-        {isWrongUser &&
-          <Typography variant="h4" sx={{ p: 1 }}> 
-              Feil brukernavn eller passord
-          </Typography>
+        {isWrongUser && <Alert severity="info">Wrong username or password</Alert>
         }
      
     </Box>
