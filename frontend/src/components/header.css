@@ -2,16 +2,30 @@ html, body {
     margin: 0;
   }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 .href{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #8b6363;
-    height: 50px;
+    height: 60px;
     margin-bottom: 8px;
+    color: white;
+}
+
+.topRight{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 8px;
 }
 
 .link{
-    margin-left: 40px;
+    margin-left: 8px;
 }
 
 .searchBar{
@@ -22,3 +36,7 @@ html, body {
     margin: 10px;
 }
 
+p{
+    color: white;
+    font-family: 'Verdana, sans-serif, Areal';
+}
