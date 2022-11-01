@@ -26,27 +26,27 @@ const FILTER = [
   { 
     value: "Movie",
     dbValue: "title",
-    icon: <MovieIcon sx={{ color:"#8b6363"}} />
+    /*icon: <MovieIcon sx={{ color:"#8b6363"}} />*/
   },
   { 
     value: "Actor",
     dbValue: "cast.name",
-    icon: <Face6Icon sx={{ color:"#8b6363"}} />
+    /*icon: <Face6Icon sx={{ color:"#8b6363"}} />*/
   },
   { 
     value: "Category",
     dbValue: "genres",
-    icon: <CategoryIcon sx={{ color:"#8b6363"}} />
+    /*icon: <CategoryIcon sx={{ color:"#8b6363"}} />*/
   },
 ]
 
 const SORT = [
   {
-    value: "Year: New -> Old",
+    value: "New-old",
     sortType: "release_date",
   }, 
   {
-    value: "Year: Old -> New",
+    value: "Old-new",
     sortType: "oldToNew",
   }, 
   {
@@ -108,14 +108,22 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
       setOffset(0)
     };
     
-    //Debounce to wait the search
+    //Debounce to wait the search 
     const debounceHandler = useMemo(() => {
       return debounce(changeHandler, 1500);
     }, []);
    
 
     return (
-          <form data-testid="searchField">
+      <div data-testid="searchField" 
+            style={
+              {display: 'flex',
+              padding: '20px',
+              justifyContent:'space-between'}}>
+          
+
+            <div style={
+              {justifyContent:'flex-start'}}>
               <TextField
                 id="CategoryField"
                 select
@@ -123,21 +131,23 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
                 helperText="Search by"
                 value={filter}
                >
-            {FILTER.map((option) => (
-              <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
-                {option.icon} {option.value}
-              </MenuItem>
-            ))}
-          </TextField>
+              {FILTER.map((option) => (
+                <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
+                {option.value}
+                </MenuItem>
+                ))}
+                      </TextField>
 
 
-            <input className="searchBar"
-            onChange={debounceHandler}
-            placeholder="Search"
-            type="search"
-            />
+            
 
-            <TextField
+            <TextField onChange={debounceHandler} placeholder='Search' type='search' label="Search" variant="outlined" />
+            </div>
+
+            <div style={
+              {justifyContent:'flex-end'}}>
+
+            <TextField 
                 select
                 onChange={handleSortChange}
                 helperText="Sort by"  
@@ -150,8 +160,11 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
             ))}
           </TextField>
 
+          </div>
+
             
 
-      </form>
+      
+      </div>
     );
 }
