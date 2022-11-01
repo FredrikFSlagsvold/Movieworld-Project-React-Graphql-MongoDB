@@ -68,7 +68,6 @@ const GetNumberOfResults = gql`
       moviesCountBySearch(filter: $filter, text: $text)
     }`
 
-//TODO MOVIECOUNT QUERY MÅ TA INN PARAMETERE OGSÅ
 
 export default function SearchField({setSearchFilter, setSearchText, searchText, setNumberOfPages, filter, setSortType, sortType, setOffset, setSort}: SearchProps){
   

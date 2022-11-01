@@ -5,7 +5,6 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {GetLikedMovies} from "./LikedMovies"
 
-//TODO FLYTT DENNE INN
 type LikedMoviesProps = {
   movieName: String
 }
