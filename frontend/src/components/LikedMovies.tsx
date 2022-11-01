@@ -27,6 +27,7 @@ export function GetLikedMovies(userID: String | null){
   return likedMovies
 }
 
+
 export default function LikedMovies(){
   const userID = sessionStorage.getItem("userID") 
   const likedMovies = GetLikedMovies(userID);
