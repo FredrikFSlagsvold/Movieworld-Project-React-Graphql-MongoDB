@@ -5,7 +5,7 @@ import SearchField from "../components/SearchField";
 import Movies from "./Movies";
 import { Box } from "@mui/system";
 
-export const MOVIESPERPAGE = 10
+export const MOVIESPERPAGE = 14
 
 export default function HomePage() {
     const [searchFilter, setSearchFilter] = useState("Movie")

@@ -50,6 +50,7 @@ export default function Movies( {offset, limit, filter, text}: MovieProps) {
         <div style={{display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        width: '100%'
         }}>
             {data.moviesBySearch.map(({ title, genres, poster_path, runtime, original_language, id }: DisplaySingleMovieProps) => { return (
                     
