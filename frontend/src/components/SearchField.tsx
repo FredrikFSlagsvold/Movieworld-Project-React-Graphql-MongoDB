@@ -109,7 +109,8 @@ export default function SearchField({setSearchFilter,
 
   return (
     <Box sx={{ display: "flex", flexDirection: "row", width: '100%', flexWrap: 'wrap', justifyContent:'center'}} className="filters">
-      <TextField 
+      <TextField
+        data-testid="sortOptionBar" 
         select
         onChange={handleSortChange}
         helperText="Sort by"  
@@ -138,7 +139,8 @@ export default function SearchField({setSearchFilter,
             ))}
       </TextField>
 
-      <TextField 
+      <TextField
+        data-testid="searchField" 
         InputProps={{endAdornment: (<InputAdornment position="end"><SearchIcon /></InputAdornment>)}}
         placeholder='Search' sx={{width:'30%', minWidth:"150px", m:1}} onChange={debounceHandler}  
         type='search' label="Search" variant="outlined" 
