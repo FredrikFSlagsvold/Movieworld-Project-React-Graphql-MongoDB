@@ -7,6 +7,8 @@ type MovieProps = {
     offset: number,
     text: string
     filter: string
+    sort: number,
+    sortType: string
 }
 
 type DisplaySingleMovieProps ={
@@ -19,11 +21,12 @@ type DisplaySingleMovieProps ={
 }
 
     const MovieFeed = gql`
-    query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String) {
-        moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter) {
+    query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
+        moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
             id
             title
             genres
+            revenue
             poster_path
             directors{
                 name
@@ -34,13 +37,13 @@ type DisplaySingleMovieProps ={
         }
     }`; 
 
-export default function Movies( {offset, limit, filter, text}: MovieProps) {
+export default function Movies( {offset, limit, filter, text, sort, sortType}: MovieProps) {
 
   const nav = useNavigate();
-
+    // console.log("offset, limit, filter, text, sort, sortType", offset, limit, filter, text, sort, sortType)
 
     const {loading, error, data } = useQuery(MovieFeed, {
-        variables: {offset: offset, limit: limit, filter: filter, text: text},
+        variables: {offset: offset, limit: limit, filter: filter, text: text, sort: sort, sortType: sortType},
     });
 
     if (loading) return <p>Loading...</p>;

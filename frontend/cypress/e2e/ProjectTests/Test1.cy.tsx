@@ -86,14 +86,14 @@ describe("Test like movies function", () => {
     it("Movie not in liked movies page", () =>{
         cy.get('[data-testid="LikedMoviesLink"]').click()
         cy.wait(2000)
-        cy.contains('Mortal Kombat').should('not.exist')
+        cy.contains('Crazy About Her').should('not.exist')
     })
-    it("Mortal Kombat in list of liked movies", () => {
+    it("Crazy About Her in list of liked movies", () => {
         cy.get("[data-testid=singleMovieDiv]").eq(6).click()
         cy.get('[data-testid="FavoriteButton"]').click()
         cy.get('[data-testid="LikedMoviesLink"]').click()
         cy.wait(2000)
-        cy.contains('Mortal Kombat').should('exist')
+        cy.contains('Crazy About Her').should('exist')
         cy.get("[data-testid=singleMovieDiv]").eq(-1).click()
         cy.get('[data-testid="FavoriteButton"]').click()
     })
