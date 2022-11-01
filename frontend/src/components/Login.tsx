@@ -1,12 +1,13 @@
 import { useState } from "react"
 import {gql, useQuery} from "@apollo/client";
-import { TextField, Box, Button, Typography } from "@mui/material";
+import { TextField, Box, Button, Typography, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState(''); 
+    const [isWrongUser, setIsWrongUser] = useState(false)
     const navigate = useNavigate();
 
 
@@ -44,11 +45,13 @@ const Login = () => {
         window.location.reload();
       }else{
         sessionStorage.setItem("isLoggedIn", "false")
+        setIsWrongUser(true)
       }
   }
 
 
   return (
+    <>
     <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h4" sx={{ p: 1 }}> 
         Login
@@ -60,8 +63,7 @@ const Login = () => {
           required
           value={userName}
            onChange={(e) =>
-            setUserName(e.target.value
-            )
+            setUserName(e.target.value)
           }
           sx={{ m: 1 }}
           data-testid="username"
@@ -81,26 +83,27 @@ const Login = () => {
           }
           sx={{ m: 1 }}
         />
-            <Button
-                disabled={userName === "" || password === ""}
-                variant="contained"
-                onClick={checkUser}
-                sx={{ m: 1 }}
-                data-testid="loginButton" 
-              >
-              login
-            </Button>
+        <Button
+            disabled={userName === "" || password === ""}
+            variant="contained"
+            onClick={checkUser}
+            sx={{ m: 1 }}
+            data-testid="loginButton" 
+          >
+          login
+        </Button>
 
         <Button
         component={Link} to="/register"
           variant="contained"
-          sx={{ m: 1 }}
-
-        >
-     Create new account
+          sx={{ m: 1 }}>
+            Create new account
         </Button>
-
+        {isWrongUser && <Alert severity="info">Wrong username or password</Alert>
+        }
+     
     </Box>
+        </>
   )
     
 }

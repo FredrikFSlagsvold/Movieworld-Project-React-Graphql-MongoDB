@@ -1,5 +1,5 @@
-import { gql, useMutation } from "@apollo/client"
-import { Box, Typography, TextField, Button } from "@mui/material"
+import { gql, useMutation, useQuery } from "@apollo/client"
+import { Box, Typography, TextField, Button, Alert } from "@mui/material"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -33,19 +33,36 @@ type UserProps= {
   }
   `;
 
+const FIND_USER = gql`
+  query ($userName: String){
+    userByUserName(userName: $userName){
+      userName
+      id
+    }
+  } 
+  `;
+
+
 export default function CreateUser() {
     const[firstName, setFirstName] = useState("")
     const[lastName, setLastName] = useState("")
     const[password, setPassword] = useState("")
     const[userName, setUserName] = useState("")
 
-  const [signup] = useMutation<
-      { user: UserProps}
-    >( SIGNUP_MUTATION, {
-      variables: { firstName: firstName, lastName:lastName, password: password, userName: userName } 
-    });
+    const  {data, loading, error} = useQuery(FIND_USER,{
+      variables: {userName: userName}
+    })
 
+
+
+    const [signup] = useMutation<
+        { user: UserProps}
+      >( SIGNUP_MUTATION, {
+        variables: { firstName: firstName, lastName:lastName, password: password, userName: userName } 
+      });
+  
   return (
+    <>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography variant="h4" sx={{ p: 1 }}> Register new user
               </Typography>
@@ -83,12 +100,13 @@ export default function CreateUser() {
               sx={{ m: 1 }} />
               
               <Button
-              disabled={userName === "" || password === "" || firstName === "" || lastName === ""}
+              disabled={userName === "" || password === "" || firstName === "" || lastName === "" || data?.userByUserName.length !== 0} 
               variant="contained"
               type="submit"
               sx={{ m: 1 }}
               data-cy="submit-button"
-              onClick={() => signup()}
+              onClick={()=> signup()}
+              component={Link} to="/login"
             >
               Register new user
               </Button>
@@ -101,7 +119,9 @@ export default function CreateUser() {
      Go to login page
         </Button>
           </Box>
+         {data?.userByUserName.length === 1 && <Alert severity="info">This username already exists</Alert>
+         }
+          </>
       )
     
-
 }

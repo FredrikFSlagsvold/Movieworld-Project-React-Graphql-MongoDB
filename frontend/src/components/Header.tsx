@@ -17,8 +17,9 @@ export default function Header(){
         </div>
       <div className="topRight">
         <ButtonGroup variant="text" color="inherit" aria-label="text button group">
-         <Link data-testid="LikedMoviesLink" reloadDocument={true} to="/liked">Liked movies</Link>
-          {sessionStorage.getItem("isLoggedIn") === "true" ?  <Button onClick={logout}>Logout</Button> : <div className="link"><Link to="/login">Login</Link></div>}
+          <div style={{cursor: "pointer", padding:"10px", fontSize:"16px"}}> 
+           <Link data-testid="LikedMoviesLink" reloadDocument={true} to="/liked">LIKED MOVIES</Link> </div>
+          {sessionStorage.getItem("isLoggedIn") === "true" ?  <div style={{cursor: "pointer", padding:"10px", fontSize:"16px"}} onClick={logout}>LOGOUT</div> : <div className="link"><Link to="/login">Login</Link></div>}
         </ButtonGroup>
       </div>
     </div>

@@ -13,6 +13,7 @@ const {
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
+const { error } = require("console");
 
 app.use(cors());
 
@@ -208,9 +209,7 @@ const schema = new GraphQLSchema({
           userName: { type: GraphQLString },
         },
         resolve: (root, args, context, info) => {
-          return UserModel.find({
-            userName: args.userName,
-          }).exec();
+          return UserModel.find( {userName: args.userName} ).exec();
         },
       },
 
@@ -267,8 +266,8 @@ const schema = new GraphQLSchema({
           userName: { type: GraphQLString },
         },
         resolve: (root, args, context, info) => {
-          var people = new UserModel(args, {upsert: true});
-          return people.save();
+          var people = new UserModel(args);
+          return people.save()
         },
       },
     },
