@@ -22,7 +22,7 @@ type DisplaySingleMovieProps ={
     release_date: String
 }
 
-    const MovieFeed = gql`
+    export const MovieFeed = gql`
     query MovieQuery($offset: Int, $limit: Int, $text: String, $filter: String, $sort: Int, $sortType: String) {
         moviesBySearch(offset: $offset, limit: $limit, text: $text, filter: $filter, sort: $sort, sortType: $sortType) {
             id
@@ -40,10 +40,6 @@ type DisplaySingleMovieProps ={
                 name
             }
         }
-        cast{
-            name
-        }
-    }
 }`; 
 
 export default function Movies( {offset, limit, filter, text, sort, sortType}: MovieProps) {
