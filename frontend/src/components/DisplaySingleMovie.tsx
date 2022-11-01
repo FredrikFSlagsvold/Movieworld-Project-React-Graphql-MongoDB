@@ -20,7 +20,7 @@ export default function DisplaySingleMovie({poster_path, original_language, titl
         margin: "24px",
         cursor: 'pointer',
     }}>
-        <img src={"https://image.tmdb.org/t/p/original/"+ poster_path} width="190px" height="284.8px"/>
+        <img src={"https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+ poster_path} width="190px" height="284.8px"/>
             <div style={{textAlign:"center"}}>
             {(() => {
         if (title.length>24) {
