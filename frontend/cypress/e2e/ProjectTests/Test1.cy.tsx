@@ -41,24 +41,24 @@ describe("Test homepage", () => {
 
 describe("Test search bar", () => {
     it("Search bar works for movie category", () => {
-        cy.get('[id="outlined-select-currency"]').click()
+        cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(0).click()
-        cy.get('*[class^="searchBar"]').type("Lord")
+        cy.get('*[class^="searchBar"]').type("Lord of the rings")
         cy.wait(2000)
-        cy.get('[data-testid=singleMovieDiv]').should('have.length', 4)
+        cy.get('[data-testid=singleMovieDiv]').should('have.length', 3)
         cy.get("[data-testid=singleMovieDiv]").eq(0).click()
         cy.contains("The Lord of the Rings")
     })
 
     it("Lord does not work for cast category", () => {
-        cy.get('[id="outlined-select-currency"]').click()
+        cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(1).click()
         cy.get('*[class^="searchBar"]').type("Lord")
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 0)
     })
 
     it("Actor category works for actor names", () => { 
-        cy.get('[id="outlined-select-currency"]').click()
+        cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(1).click()
         cy.get('*[class^="searchBar"]').type("Tom Holland")
         cy.wait(2000)
@@ -66,14 +66,14 @@ describe("Test search bar", () => {
     })
 
     it("Actor names gives zero results in Category field", () => {
-        cy.get('[id="outlined-select-currency"]').click()
+        cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(2).click()
         cy.get('*[class^="searchBar"]').type("Tom Holland")
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 0)
     })
 
     it("Animation-category gives results in Cateogry field", () => {
-        cy.get('[id="outlined-select-currency"]').click()
+        cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(2).click()
         cy.get('*[class^="searchBar"]').type("Animation")
         cy.wait(2000)
