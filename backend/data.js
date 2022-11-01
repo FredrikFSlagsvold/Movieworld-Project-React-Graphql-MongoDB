@@ -5,14 +5,11 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLList,
-  GraphQLType,
   GraphQLSchema,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLInt,
-  GraphQLEnumType,
-  GraphQLInputObjectType,
-  GraphQLScalarType,
+  GraphQLFloat,
 } = require("graphql");
 var app = Express();
 var cors = require("cors");
@@ -36,6 +33,7 @@ const MovieModel = mongoose.model("movie", {
   genres: [String],
   vote_average: Number,
   runtime: Number,
+  revenue: Number,
   vote_count: Number,
   overview: String,
   directors: [
@@ -79,8 +77,9 @@ const MovieType = new GraphQLObjectType({
     title: { type: GraphQLString },
     genres: { type: GraphQLList(GraphQLString) },
     similar: { type: GraphQLList(SimilarType) },
-    vote_average: { type: GraphQLInt },
+    vote_average: { type: GraphQLFloat },
     runtime: { type: GraphQLString },
+    revenue: { type: GraphQLString },
     vote_count: { type: GraphQLInt },
     overview: { type: GraphQLString },
     release_date: { type: GraphQLString },
@@ -157,6 +156,8 @@ const schema = new GraphQLSchema({
         },
       },
 
+      //filter: Movie === title, Actor === cast.name eller Category === genres, kun en av de tre
+      //sortType: revenue, date og runtime. 
       moviesBySearch: {
         type: GraphQLList(MovieType),
         args: {
@@ -164,30 +165,15 @@ const schema = new GraphQLSchema({
           text: { type: GraphQLString },
           offset: { type: GraphQLInt },
           limit: { type: GraphQLInt },
+          sortType: {type: GraphQLString},
+          sort: {type: GraphQLInt},
         },
         resolve: (root, args, context, info) => {
-          if (args.filter === "Movie") {
-            return MovieModel.find({
-              title: { $regex: args.text, $options: "i" },
-            })
+            return MovieModel.find({[args.filter]: { $regex: args.text, $options: "i" }})
               .skip(args.offset)
               .limit(args.limit)
+              .sort({[args.sortType]: args.sort} )
               .exec();
-          } else if (args.filter === "Actor") {
-            return MovieModel.find({
-              "cast.name": { $regex: args.text, $options: "i" },
-            })
-              .skip(args.offset)
-              .limit(args.limit)
-              .exec();
-          } else if (args.filter === "Category") {
-            return MovieModel.find({
-              genres: { $regex: args.text, $options: "i" },
-            })
-              .skip(args.offset)
-              .limit(args.limit)
-              .exec();
-          }
         },
       },
 
@@ -198,16 +184,8 @@ const schema = new GraphQLSchema({
         },
         type: GraphQLInt,
         resolve: (root, args, context, info) => {
-          if (args.filter === "Movie") {
-            return MovieModel.countDocuments({ title: { $regex: args.text } });
-          } else if (args.filter === "Actor") {
-            return MovieModel.countDocuments({
-              "cast.name": { $regex: args.text },
-            });
-          } else if (args.filter === "Category") {
-            return MovieModel.countDocuments({ genres: { $regex: args.text } });
-          }
-        },
+          return MovieModel.countDocuments({[args.filter]: { $regex: args.text, $options: "i" }})
+        }
       },
 
       login: {
@@ -289,7 +267,7 @@ const schema = new GraphQLSchema({
           userName: { type: GraphQLString },
         },
         resolve: (root, args, context, info) => {
-          var people = new UserModel(args);
+          var people = new UserModel(args, {upsert: true});
           return people.save();
         },
       },
