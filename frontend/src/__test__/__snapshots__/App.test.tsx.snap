@@ -3,39 +3,6 @@
 exports[`First snapshot test 1`] = `
 <div>
   <div
-    className="href"
-  >
-    <div
-      className="link"
-    >
-      <a
-        href="/"
-        onClick={[Function]}
-      >
-        HomePage
-      </a>
-    </div>
-    <div
-      className="link"
-    >
-      <a
-        href="/liked"
-      >
-        Liked Movies
-      </a>
-    </div>
-    <div
-      className="link"
-    >
-      <a
-        href="/login"
-        onClick={[Function]}
-      >
-        Login
-      </a>
-    </div>
-  </div>
-  <div
     className="MuiBox-root css-j7qwjs"
   >
     <h4
@@ -191,27 +158,6 @@ exports[`First snapshot test 1`] = `
     >
       Create new account
     </a>
-    <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      Logout
-    </button>
   </div>
 </div>
 `;
