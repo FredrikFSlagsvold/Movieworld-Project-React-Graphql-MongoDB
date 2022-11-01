@@ -1,13 +1,10 @@
 import { Pagination } from '@mui/material';
-import { useState } from 'react';
 
 type movieProps ={
     moviesPerPage: number,
     pages: number
     setOffset: React.Dispatch<React.SetStateAction<number>>
 }
-
-
 
 
 export default function PaginationComponent( { moviesPerPage,pages, setOffset }: movieProps ){

@@ -4,8 +4,6 @@ import { TextField, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState(''); 
@@ -46,12 +44,7 @@ const Login = () => {
         window.location.reload();
       }else{
         sessionStorage.setItem("isLoggedIn", "false")
-        console.log("Feil brukernavn eller passord")
       }
-  }
-
-  function logout(){
-     sessionStorage.setItem("isLoggedIn", "false")
   }
 
 
@@ -93,7 +86,7 @@ const Login = () => {
                 variant="contained"
                 onClick={checkUser}
                 sx={{ m: 1 }}
-                data-testid="loginButton" //legges inn for å kunne bruke knappen under end to end testing.
+                data-testid="loginButton" 
               >
               login
             </Button>
@@ -107,12 +100,6 @@ const Login = () => {
      Create new account
         </Button>
 
-        <Button
-        variant="contained"
-        onClick={logout}>
-          
-          Logout
-        </Button>
     </Box>
   )
     

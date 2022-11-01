@@ -1,14 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { Box } from "@mui/material"
-import DisplaySingleMovie from "./DisplaySingleMovie"
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DisplayLikedMovie from "./DisplayLikedMovie";
-import { ApolloClient } from "@apollo/client";
-
-
-
-
 
     const GET_USER = gql`
     query Query($id: String) {
@@ -33,9 +25,7 @@ export function GetLikedMovies(userID: String | null){
     data && setLikedMovies(data?.userByID[0].likedMovies)
   },[data])
   return likedMovies
-
 }
-
 
 export default function LikedMovies(){
   const userID = sessionStorage.getItem("userID") 
@@ -44,7 +34,7 @@ export default function LikedMovies(){
 
     return (
     <div>  
-      <h1>DINE LIKTE FILMER</h1>
+      <h1>LIKED MOVIES</h1>
       <div style={{display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',

@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 
 
 const client = new ApolloClient({

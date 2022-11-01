@@ -17,7 +17,6 @@ type SearchProps ={
   filter: String
 }
 
-
 const FILTER = [
   { 
     value: "Movie",
@@ -72,25 +71,26 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
 
     return (
           <form data-testid="searchField">
-            <input className="searchBar"
-            onChange={debounceHandler}
-            placeholder="Search"
-            type="search"
-            />
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Select"
-            onChange={handleChange}
-            helperText="Please select your category"
-            >
+              <TextField
+                select
+                onChange={handleChange}
+                helperText="Select category"
+                value={filter}
+               >
             {FILTER.map((option) => (
               <MenuItem data-testid="filterOption" key={option.value} value={option.value}>
                 {option.icon} {option.value}
               </MenuItem>
             ))}
-            
           </TextField>
+
+
+            <input className="searchBar"
+            onChange={debounceHandler}
+            placeholder="Search"
+            type="search"
+            />
+
           </form>
     );
 }

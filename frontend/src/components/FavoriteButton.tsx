@@ -65,7 +65,6 @@ mutation Mutation (
   `;
 
   
-
 export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
     const userID = sessionStorage.getItem("userID") 
     const [clicked, setClicked] = useState(false);
@@ -75,7 +74,6 @@ export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
     useEffect(()=>{
       if(likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle).length ){
         setClicked(true)
-        console.log("denne filmen er likt", likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle))
       }
     },[likedMovies])
 
