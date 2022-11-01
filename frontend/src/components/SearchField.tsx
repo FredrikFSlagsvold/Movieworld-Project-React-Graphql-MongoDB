@@ -8,7 +8,6 @@ import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
 import { GetNumberOfResults } from "../utils/Queries";
 
-
 type SearchProps ={
   setSearchText: React.Dispatch<React.SetStateAction<string>>
   setSearchFilter: React.Dispatch<React.SetStateAction<string>>
@@ -61,8 +60,6 @@ const SORT = [
  ]
 
 
-
-
 export default function SearchField({setSearchFilter, 
   setSearchText, 
   searchText, 
@@ -81,14 +78,11 @@ export default function SearchField({setSearchFilter,
     setNumberOfPages(Math.ceil(data?.moviesCountBySearch/MOVIESPERPAGE));
   },[data, setNumberOfPages])
 
-  //Search on Movie, Actor or Category
   const handleCategoryChange = (event: any) => {
     setSearchFilter(event.target.value);
   };
 
-  //Sort on release date, revenue or popularity
   const handleSortChange = (event: any) => {
-    console.log("HANDLECHANGE" , event.target.value)
     if(event.target.value === "release_date"){
       setSortType(event.target.value);
       setSort(-1)
@@ -101,7 +95,6 @@ export default function SearchField({setSearchFilter,
     }
   };
 
-  //Every title starts with a big letter, this function makes sure the search is on correct form
   const changeHandler = (event: any) => {
     const search = event.target.value;
     setSearchText(search)

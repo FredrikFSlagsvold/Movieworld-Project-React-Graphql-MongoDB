@@ -11,8 +11,6 @@ type DisplaySingleMovieProps ={
 
 export default function DisplaySingleMovie({poster_path, title, runtime, genres, vote_average, release_date}: DisplaySingleMovieProps){
     let genresString = genres.join(', ');
-    console.log("run", runtime)
-
     return <>
     <div data-testid="singleMovieDiv" style={{
         width: 190,
