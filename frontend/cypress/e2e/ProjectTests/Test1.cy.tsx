@@ -1,8 +1,5 @@
 /// <reference types="cypress" />
 
-//Simulere at man kan like en film og kanskje at man kan lage ny bruker og logge inn med denne.
-// https://github.com/cypress-io/cypress/issues/1805. Istedenfor å bruke wait() da dette ikke er helt ideelt.
-
 beforeEach(() => {
     cy.visit("localhost:3000");
 })
@@ -43,7 +40,7 @@ describe("Test search bar", () => {
     it("Search bar works for movie category", () => {
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(0).click()
-        cy.get('*[class^="searchBar"]').type("Lord of the rings")
+        cy.get('[data-testid="searchField"]').type("Lord of the rings")
         cy.wait(2000)
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 3)
         cy.get("[data-testid=singleMovieDiv]").eq(0).click()
@@ -53,14 +50,14 @@ describe("Test search bar", () => {
     it("Lord does not work for cast category", () => {
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(1).click()
-        cy.get('*[class^="searchBar"]').type("Lord")
+        cy.get('[data-testid="searchField"]').type("Lord")
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 0)
     })
 
     it("Actor category works for actor names", () => { 
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(1).click()
-        cy.get('*[class^="searchBar"]').type("Tom Holland")
+        cy.get('[data-testid="searchField"]').type("Tom Holland")
         cy.wait(2000)
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 8)
     })
@@ -68,17 +65,29 @@ describe("Test search bar", () => {
     it("Actor names gives zero results in Category field", () => {
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(2).click()
-        cy.get('*[class^="searchBar"]').type("Tom Holland")
+        cy.get('[data-testid="searchField"]').type("Tom Holland")
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 0)
     })
 
     it("Animation-category gives results in Cateogry field", () => {
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(2).click()
-        cy.get('*[class^="searchBar"]').type("Animation")
+        cy.get('[data-testid="searchField"]').type("Animation")
         cy.wait(2000)
         cy.get("[data-testid=singleMovieDiv]").eq(0).click()
         cy.contains("Raya")
+    })
+
+    it("Sort field changes the order of movies", () => {
+        cy.get("[data-testid=singleMovieDiv]").eq(0).click()
+        cy.contains("Godzilla")
+        cy.wait(1500)
+        cy.get("[data-testid=HomePageLink]").click()
+        cy.get("[data-testid=sortOptionBar]").click()
+        cy.get("[data-testid=sortOption]").eq(1).click()
+        cy.wait(1000)
+        cy.get("[data-testid=singleMovieDiv]").eq(0).click()
+        cy.contains("A Trip to the Moon")
     })
 })
 
@@ -89,7 +98,7 @@ describe("Test like movies function", () => {
         cy.contains('Crazy About Her').should('not.exist')
     })
     it("Crazy About Her in list of liked movies", () => {
-        cy.get("[data-testid=singleMovieDiv]").eq(6).click()
+        cy.get("[data-testid=singleMovieDiv]").eq(5).click()
         cy.get('[data-testid="FavoriteButton"]').click()
         cy.get('[data-testid="LikedMoviesLink"]').click()
         cy.wait(2000)

@@ -3,10 +3,21 @@
 exports[`First snapshot test 1`] = `
 <div>
   <div
+    className="href"
+  >
+    <div
+      className="link"
+    >
+      <p>
+        M O V I E W O R L D
+      </p>
+    </div>
+  </div>
+  <div
     className="MuiBox-root css-j7qwjs"
   >
     <h4
-      className="MuiTypography-root MuiTypography-h4 css-ifkp47-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-h4 css-141n43w-MuiTypography-root"
     >
       Login
     </h4>
@@ -117,7 +128,7 @@ exports[`First snapshot test 1`] = `
       </div>
     </div>
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-h0uqyz-MuiButtonBase-root-MuiButton-root"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-hxzusq-MuiButtonBase-root-MuiButton-root"
       data-testid="loginButton"
       disabled={true}
       onBlur={[Function]}
@@ -139,7 +150,7 @@ exports[`First snapshot test 1`] = `
       login
     </button>
     <a
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-h0uqyz-MuiButtonBase-root-MuiButton-root"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-124h1b9-MuiButtonBase-root-MuiButton-root"
       href="/register"
       onBlur={[Function]}
       onClick={[Function]}
