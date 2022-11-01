@@ -75,7 +75,7 @@ export default function FavoriteButton({movieTitle}: FavoriteButtonProps) {
       if(likedMovies.filter(({movieName}: LikedMoviesProps) => movieName === movieTitle).length ){
         setClicked(true)
       }
-    },[likedMovies])
+    },[likedMovies, movieTitle])
 
 
     const [addMovie] = useMutation<{ user: UserProps}>( addFavoriteMutation, {

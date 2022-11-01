@@ -49,11 +49,9 @@ export default function CreateUser() {
     const[password, setPassword] = useState("")
     const[userName, setUserName] = useState("")
 
-    const  {data, loading, error} = useQuery(FIND_USER,{
+    const  {data} = useQuery(FIND_USER,{
       variables: {userName: userName}
     })
-
-
 
     const [signup] = useMutation<
         { user: UserProps}
@@ -116,7 +114,7 @@ export default function CreateUser() {
           sx={{ m: 1 }}
 
         >
-     Go to login page
+          Go to login page
         </Button>
           </Box>
          {data?.userByUserName.length === 1 && <Alert severity="info">This username already exists</Alert>

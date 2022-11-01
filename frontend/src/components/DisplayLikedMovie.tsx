@@ -35,12 +35,9 @@ movieByName(
 
 export default function DisplayLikedMovie({movieName}: DisplayLikedMovieProps){
     const nav = useNavigate();
-
-
-    const { loading, error, data } = useQuery(GET_MOVIEBYNAME, {
+    const {data } = useQuery(GET_MOVIEBYNAME, {
         variables: { title: movieName },
       });
-
 
     return (
         <>
