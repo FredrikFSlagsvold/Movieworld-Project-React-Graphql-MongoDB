@@ -1,16 +1,18 @@
 
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import PaginationComponent from "../components/PaginationComponent";
 import SearchField from "../components/SearchField";
+import { filterAtom, sortAtom } from "../shared/globalState";
 import Movies from "./Movies";
 
 export const MOVIESPERPAGE = 12
 
 export default function HomePage() {
-    const [searchFilter, setSearchFilter] = useState("title")
+    const [searchFilter, setSearchFilter] = useRecoilState(filterAtom)
     const [searchText, setSearchText] = useState("")
     const [sort, setSort] = useState(-1)
-    const [sortType, setSortType] = useState("release_date")
+    const [sortType, setSortType] = useRecoilState(sortAtom)
     const [numberOfPages, setNumberOfPages] = useState(0)
     const [offset, setOffset] = useState(0)
     
