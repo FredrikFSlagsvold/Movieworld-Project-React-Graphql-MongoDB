@@ -1,52 +1,13 @@
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useParams, useNavigate, Link} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
 import FavoriteButton from "./FavoriteButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { GET_MOVIE, GET_SIMILAR_MOVIES } from "../utils/Queries";
 
 
-const GET_MOVIE = gql`
-  query Query($id: Int!) {
-    movieByID(id: $id) {
-      title
-      overview
-      poster_path
-      trailer_yt
-      release_date
-      original_language
-      runtime
-      genres
-      cast {
-        name
-        id
-      }
-      directors {
-        name
-        id
-      }
-      similar {
-        title
-        id
-      }
-    }
-  }
-`;
 
-const GET_SIMILAR_MOVIES = gql`
-  query Query($ids: [Int]) {
-    movieListByIDs(ids: $ids) {
-      id
-      title
-      genres
-      poster_path
-      original_language
-      runtime
-      vote_average
-      release_date
-    }
-  }
-`;
 
 export default function DisplayMovie() {
   const { movieID } = useParams<string>();
@@ -145,7 +106,6 @@ export default function DisplayMovie() {
                 <DisplaySingleMovie
                   key={data.id}
                   poster_path={data.poster_path}
-                  original_language={data.original_language}
                   title={data.title}
                   runtime={data.runtime}
                   genres={data.genres}

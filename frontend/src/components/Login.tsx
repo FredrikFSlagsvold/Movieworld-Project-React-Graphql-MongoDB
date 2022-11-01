@@ -1,33 +1,15 @@
 import { useState } from "react"
-import {gql, useQuery} from "@apollo/client";
-import { TextField, Box, Button, Typography, Alert, ButtonGroup } from "@mui/material";
+import { useQuery} from "@apollo/client";
+import { TextField, Box, Button, Typography, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { LOGIN_MUTATION } from "../utils/Queries";
 
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState(''); 
     const [isWrongUser, setIsWrongUser] = useState(false)
     const navigate = useNavigate();
-
-
-    const LOGIN_MUTATION = gql`
-    query Query (
-    $userName: String!
-    $password:String!
-  ) {
-    login( 
-      userName: $userName,
-      password: $password
-    ) {
-      id
-      firstName
-      lastName
-      userName
-      password
-    }
-  }
-`;
 
   const {data} = useQuery(LOGIN_MUTATION, {
     variables: {
