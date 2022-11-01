@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo } from "react";
 import { gql, useQuery } from '@apollo/client';
-import { debounce, MenuItem, TextField } from "@mui/material";
-import "./header.css"
+import { Box, debounce, InputAdornment, MenuItem, TextField } from "@mui/material";
+// import "./header.css";
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from "react-router-dom";
+import { MOVIESPERPAGE } from "../Page/HomePage";
+import "../css/searchField.css";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
-import { MOVIESPERPAGE } from "../Page/HomePage";
+
 
 
 type SearchProps ={
@@ -24,7 +28,7 @@ const FILTER = [
   { 
     value: "Movie",
     dbValue: "title",
-    icon: <MovieIcon sx={{ color:"#8b6363"}} />
+    icon: <MovieIcon sx={{ color:"#8b6363"}} fontSize='inherit'/>
   },
   { 
     value: "Actor",
@@ -40,11 +44,12 @@ const FILTER = [
 
 const SORT = [
   {
-    value: "Year: New -> Old",
+    value: "New-old",
     sortType: "release_date",
+
   }, 
   {
-    value: "Year: Old -> New",
+    value: "Old-new",
     sortType: "oldToNew",
   }, 
   {
@@ -105,50 +110,52 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
       setOffset(0)
     };
     
-    //Debounce to wait the search
+    //Debounce to wait the search 
     const debounceHandler = useMemo(() => {
       return debounce(changeHandler, 1500);
     }, []);
    
 
     return (
-          <form data-testid="searchField">
+
+<Box sx={{ display: "flex", flexDirection: "row", width: '100%', flexWrap: 'wrap', justifyContent:'center'}} className="filters">
+            <TextField 
+                select
+                onChange={handleSortChange}
+                helperText="Sort by"  
+                defaultValue={sortType}
+                sx={{width:'30%', minWidth:"150px", m:1}}
+               >
+            {SORT.map((option) => (
+              <MenuItem data-testid="sortOption" key={option.value} value={option.sortType}>
+               {option.value} 
+              </MenuItem>
+            ))}
+          </TextField>
+
               <TextField
                 id="CategoryField"
                 select
                 onChange={handleCategoryChange}
                 helperText="Search by"
                 value={filter}
+                sx={{ width:'30%', minWidth:"150px", m:1}}
                >
-            {FILTER.map((option) => (
-              <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
+              {FILTER.map((option) => (
+                <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
                 {option.icon} {option.value}
-              </MenuItem>
-            ))}
-          </TextField>
+                </MenuItem>
+                ))}
+                </TextField>
+
+            <TextField 
+              InputProps={{endAdornment: (<InputAdornment position="end"><SearchIcon /></InputAdornment>)}}
+        placeholder='Search' sx={{width:'30%', minWidth:"150px", m:1}} onChange={debounceHandler}  type='search' label="Search" variant="outlined" />
 
 
-            <input className="searchBar"
-            onChange={debounceHandler}
-            placeholder="Search"
-            type="search"
-            />
 
-            <TextField
-                select
-                onChange={handleSortChange}
-                helperText="Sort by"  
-                defaultValue={sortType}
-               >
-            {SORT.map((option) => (
-              <MenuItem data-testid="sortOption" key={option.value} value={option.sortType}>
-                {option.value} 
-              </MenuItem>
-            ))}
-          </TextField>
 
-            
-
-      </form>
+      
+      </Box>
     );
 }

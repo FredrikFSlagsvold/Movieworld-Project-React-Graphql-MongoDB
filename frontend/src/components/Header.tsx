@@ -1,6 +1,6 @@
 import { ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
-import "./header.css"
+import "../css/global.css"
 
 
 export default function Header(){
