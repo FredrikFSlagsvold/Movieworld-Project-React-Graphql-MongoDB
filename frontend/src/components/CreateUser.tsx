@@ -1,7 +1,8 @@
-import { gql, useMutation, useQuery } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { Box, Typography, TextField, Button, Alert } from "@mui/material"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { FIND_USER, SIGNUP_MUTATION } from "../utils/Queries"
 
 type UserProps= {
   firstName: String
@@ -9,39 +10,6 @@ type UserProps= {
   password: String
   userName: String
 }
-
-  const SIGNUP_MUTATION = gql`
-  mutation
-  Users(
-  $firstName: String! 
-  $lastName: String!
-  $password:String!
-  $userName:String!
-  ) {
-  Users( 
-    firstName: $firstName,
-    lastName: $lastName,
-    password:$password, 
-    userName:$userName, 
-  ) {
-    id
-    firstName
-    lastName
-    password
-    userName
-  }
-  }
-  `;
-
-const FIND_USER = gql`
-  query ($userName: String){
-    userByUserName(userName: $userName){
-      userName
-      id
-    }
-  } 
-  `;
-
 
 export default function CreateUser() {
     const[firstName, setFirstName] = useState("")
@@ -121,5 +89,4 @@ export default function CreateUser() {
          }
           </>
       )
-    
 }

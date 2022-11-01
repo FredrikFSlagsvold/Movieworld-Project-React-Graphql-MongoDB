@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { MockedProvider} from '@apollo/client/testing';
 import Movies from './Movies';
-import  { MovieFeed } from './Movies';
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import '@testing-library/jest-dom/extend-expect'
+import { MovieFeed } from "../utils/Queries";
 
 
 const movieMocks =[{

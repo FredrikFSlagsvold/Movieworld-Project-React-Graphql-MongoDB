@@ -1,15 +1,12 @@
 import React, { useEffect, useMemo } from "react";
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Box, debounce, InputAdornment, MenuItem, TextField } from "@mui/material";
-// import "./header.css";
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from "react-router-dom";
 import { MOVIESPERPAGE } from "../Page/HomePage";
-import "../css/searchField.css";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
-
+import { GetNumberOfResults } from "../utils/Queries";
 
 
 type SearchProps ={
@@ -63,13 +60,18 @@ const SORT = [
   },
  ]
 
-const GetNumberOfResults = gql`
-    query Query($filter: String, $text: String){
-      moviesCountBySearch(filter: $filter, text: $text)
-    }`
 
 
-export default function SearchField({setSearchFilter, setSearchText, searchText, setNumberOfPages, filter, setSortType, sortType, setOffset, setSort}: SearchProps){
+
+export default function SearchField({setSearchFilter, 
+  setSearchText, 
+  searchText, 
+  setNumberOfPages, 
+  filter, 
+  setSortType, 
+  sortType, 
+  setOffset, 
+  setSort}: SearchProps){
   
   const {data} = useQuery(GetNumberOfResults, {
     variables: {filter: filter, text: searchText}
@@ -79,12 +81,10 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
     setNumberOfPages(Math.ceil(data?.moviesCountBySearch/MOVIESPERPAGE));
   },[data, setNumberOfPages])
 
-
   //Search on Movie, Actor or Category
   const handleCategoryChange = (event: any) => {
     setSearchFilter(event.target.value);
   };
-
 
   //Sort on release date, revenue or popularity
   const handleSortChange = (event: any) => {
@@ -99,62 +99,57 @@ export default function SearchField({setSearchFilter, setSearchText, searchText,
       setSortType(event.target.value);
       setSort(-1)
     }
-
   };
 
-    //Every title starts with a big letter, this function makes sure the search is on correct form
-    const changeHandler = (event: any) => {
-      const search = event.target.value;
-      setSearchText(search)
-      setOffset(0)
-    };
+  //Every title starts with a big letter, this function makes sure the search is on correct form
+  const changeHandler = (event: any) => {
+    const search = event.target.value;
+    setSearchText(search)
+    setOffset(0)
+  };
     
-    //Debounce to wait the search 
-    const debounceHandler = useMemo(() => {
-      return debounce(changeHandler, 1500);
-    }, []);
+  //Debounce to wait the search 
+  const debounceHandler = useMemo(() => {
+    return debounce(changeHandler, 1500);
+  }, []);
    
 
-    return (
+  return (
+    <Box sx={{ display: "flex", flexDirection: "row", width: '100%', flexWrap: 'wrap', justifyContent:'center'}} className="filters">
+      <TextField 
+        select
+        onChange={handleSortChange}
+        helperText="Sort by"  
+        defaultValue={sortType}
+        sx={{width:'30%', minWidth:"150px", m:1}}
+        >
+          {SORT.map((option) => (
+            <MenuItem data-testid="sortOption" key={option.value} value={option.sortType}>
+              {option.value} 
+            </MenuItem>
+          ))}
+      </TextField>
 
-<Box sx={{ display: "flex", flexDirection: "row", width: '100%', flexWrap: 'wrap', justifyContent:'center'}} className="filters">
-            <TextField 
-                select
-                onChange={handleSortChange}
-                helperText="Sort by"  
-                defaultValue={sortType}
-                sx={{width:'30%', minWidth:"150px", m:1}}
-               >
-            {SORT.map((option) => (
-              <MenuItem data-testid="sortOption" key={option.value} value={option.sortType}>
-               {option.value} 
-              </MenuItem>
+      <TextField
+        id="CategoryField"
+        select
+        onChange={handleCategoryChange}
+        helperText="Search by"
+        value={filter}
+        sx={{ width:'30%', minWidth:"150px", m:1}}
+        >
+          {FILTER.map((option) => (
+            <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
+            {option.icon} {option.value}
+            </MenuItem>
             ))}
-          </TextField>
+      </TextField>
 
-              <TextField
-                id="CategoryField"
-                select
-                onChange={handleCategoryChange}
-                helperText="Search by"
-                value={filter}
-                sx={{ width:'30%', minWidth:"150px", m:1}}
-               >
-              {FILTER.map((option) => (
-                <MenuItem data-testid="filterOption" key={option.value} value={option.dbValue}>
-                {option.icon} {option.value}
-                </MenuItem>
-                ))}
-                </TextField>
-
-            <TextField 
-              InputProps={{endAdornment: (<InputAdornment position="end"><SearchIcon /></InputAdornment>)}}
-        placeholder='Search' sx={{width:'30%', minWidth:"150px", m:1}} onChange={debounceHandler}  type='search' label="Search" variant="outlined" />
-
-
-
-
-      
-      </Box>
+      <TextField 
+        InputProps={{endAdornment: (<InputAdornment position="end"><SearchIcon /></InputAdornment>)}}
+        placeholder='Search' sx={{width:'30%', minWidth:"150px", m:1}} onChange={debounceHandler}  
+        type='search' label="Search" variant="outlined" 
+      />
+    </Box>
     );
 }

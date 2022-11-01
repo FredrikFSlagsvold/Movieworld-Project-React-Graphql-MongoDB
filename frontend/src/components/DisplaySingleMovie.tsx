@@ -2,7 +2,6 @@ import StarIcon from '@mui/icons-material/Star';
 
 type DisplaySingleMovieProps ={
     poster_path: String;
-    original_language: String;
     title: String;
     runtime: number;
     genres: [String];
@@ -10,7 +9,7 @@ type DisplaySingleMovieProps ={
     release_date: String
 }
 
-export default function DisplaySingleMovie({poster_path, original_language, title, runtime, genres, vote_average, release_date}: DisplaySingleMovieProps){
+export default function DisplaySingleMovie({poster_path, title, runtime, genres, vote_average, release_date}: DisplaySingleMovieProps){
     let genresString = genres.join(', ');
     console.log("run", runtime)
 

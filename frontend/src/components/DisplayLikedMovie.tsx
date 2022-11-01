@@ -1,6 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useNavigate } from "react-router-dom";
+import { GET_MOVIEBYNAME } from "../utils/Queries";
 
 
 type DisplayLikedMovieProps ={
@@ -18,24 +19,7 @@ type DisplaySingleMovieProps ={
     release_date: String
 }
 
-const GET_MOVIEBYNAME = gql`
-query Query (
-$title: String!
-) {
-movieByName( 
-  title: $title,
-) {
-  title
-  id
-  runtime
-  poster_path
-  original_language
-  genres
-  vote_average
-  release_date
-}
-}
-`;
+
 
 export default function DisplayLikedMovie({movieName}: DisplayLikedMovieProps){
     const nav = useNavigate();
@@ -51,7 +35,7 @@ export default function DisplayLikedMovie({movieName}: DisplayLikedMovieProps){
                     e.key === "Enter" && nav('/movie/' + id) 
                   }} 
                   >
-                <DisplaySingleMovie release_date={release_date} vote_average={vote_average} poster_path={poster_path} original_language={original_language} title={title} runtime={runtime} genres={genres}/>
+                <DisplaySingleMovie release_date={release_date} vote_average={vote_average} poster_path={poster_path} title={title} runtime={runtime} genres={genres}/>
                 </div>
             )})}
         </>
