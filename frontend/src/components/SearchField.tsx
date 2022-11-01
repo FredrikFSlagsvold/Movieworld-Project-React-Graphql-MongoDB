@@ -2,12 +2,10 @@ import React, { useEffect, useMemo } from "react";
 import { gql, useQuery } from '@apollo/client';
 import { debounce, MenuItem, TextField } from "@mui/material";
 import "./header.css"
-import { useNavigate } from "react-router-dom";
 import MovieIcon from '@mui/icons-material/Movie';
 import Face6Icon from '@mui/icons-material/Face6';
 import CategoryIcon from '@mui/icons-material/Category';
 import { MOVIESPERPAGE } from "../Page/HomePage";
-import { Sort } from "@mui/icons-material";
 
 
 type SearchProps ={
@@ -68,15 +66,14 @@ const GetNumberOfResults = gql`
 //TODO MOVIECOUNT QUERY MÅ TA INN PARAMETERE OGSÅ
 
 export default function SearchField({setSearchFilter, setSearchText, searchText, setNumberOfPages, filter, setSortType, sortType, setOffset, setSort}: SearchProps){
-  const nav = useNavigate();
   
-  const {loading, error, data} = useQuery(GetNumberOfResults, {
+  const {data} = useQuery(GetNumberOfResults, {
     variables: {filter: filter, text: searchText}
   });
 
   useEffect(()=>{
     setNumberOfPages(Math.ceil(data?.moviesCountBySearch/MOVIESPERPAGE));
-  },[data])
+  },[data, setNumberOfPages])
 
 
   //Search on Movie, Actor or Category
