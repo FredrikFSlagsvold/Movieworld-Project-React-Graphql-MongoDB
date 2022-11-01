@@ -43,6 +43,8 @@ const GET_SIMILAR_MOVIES = gql`
       poster_path
       original_language
       runtime
+      vote_average
+      release_date
     }
   }
 `;
@@ -109,7 +111,7 @@ export default function DisplayMovie() {
             </div>
             <img
               src={
-                "https://image.tmdb.org/t/p/w600_and_h900_bestv2/" +
+                "https://image.tmdb.org/t/p/original/" +
                 data.movieByID.poster_path
               }
               alt=""
@@ -148,6 +150,8 @@ export default function DisplayMovie() {
                   title={data.title}
                   runtime={data.runtime}
                   genres={data.genres}
+                  vote_average= {data.vote_average}
+                  release_date={data.release_date}
                 />
               </div>
             )
