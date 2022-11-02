@@ -32,7 +32,7 @@ export default function DisplayMovie() {
 
   return (
     <div data-testid="testIDforAll">
-      <Link style={{color:"#8b6363"}} to="/"><HomeIcon/></Link>
+      <Link style={{color:"#8b6363"}} reloadDocument={true} to="/"><HomeIcon/></Link>
       <div
         style={{
           backgroundColor: "white",
