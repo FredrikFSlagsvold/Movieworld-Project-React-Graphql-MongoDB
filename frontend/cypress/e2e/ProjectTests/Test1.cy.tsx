@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
 beforeEach(() => {
-    cy.visit("localhost:3000");
+    cy.visit("http://it2810-20.idi.ntnu.no/project3/");
 })
 
 describe("Test Page Loading", () => {
     it("successfully loads", () => {
-        cy.visit("localhost:3000")
+        cy.visit("http://it2810-20.idi.ntnu.no/project3/")
     })
 
     it("Login", () => {
