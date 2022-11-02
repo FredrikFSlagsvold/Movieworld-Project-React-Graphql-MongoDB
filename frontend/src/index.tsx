@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/movie', 
+  uri: 'http://it2810-20.idi.ntnu.no:3001/movie', 
   cache: new InMemoryCache(),
 });
 
