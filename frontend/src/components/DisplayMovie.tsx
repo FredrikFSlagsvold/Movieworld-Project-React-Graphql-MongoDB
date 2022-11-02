@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link} from "react-router-dom";
 import DisplaySingleMovie from "./DisplaySingleMovie";
 import { useEffect } from "react";
 import FavoriteButton from "./FavoriteButton";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import HomeIcon from '@mui/icons-material/Home';
 import { GET_MOVIE, GET_SIMILAR_MOVIES } from "../utils/Queries";
 
 
@@ -32,7 +32,7 @@ export default function DisplayMovie() {
 
   return (
     <div data-testid="testIDforAll">
-      <button style={{color:"#8b6363"}} onClick={() => nav(-1)}><ArrowBackIcon/></button>
+      <Link style={{color:"#8b6363"}} to="/"><HomeIcon/></Link>
       <div
         style={{
           backgroundColor: "white",
