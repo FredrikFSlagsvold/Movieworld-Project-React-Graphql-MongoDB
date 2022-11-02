@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import {  HashRouter } from 'react-router-dom';
+import {  BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 
@@ -14,12 +14,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <HashRouter>
+  <BrowserRouter>
     <ApolloProvider client={client}>
       <RecoilRoot>
         <App />
       </RecoilRoot>
     </ApolloProvider>
-  </HashRouter>
+  </BrowserRouter>
 );
 
