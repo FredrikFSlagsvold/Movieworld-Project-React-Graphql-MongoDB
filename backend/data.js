@@ -17,7 +17,7 @@ var cors = require("cors");
 app.use(cors());
 
 mongoose
-  .connect("mongodb://it2810-20.idi.ntnu.no:27017/Project3")
+  .connect("mongodb://127.0.0.1:27017/Project3")
   .then(() => console.log("Connected to database..."))
   .catch((err) => console.error(err));
 
