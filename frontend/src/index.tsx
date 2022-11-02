@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename='/project3'>
     <ApolloProvider client={client}>
       <RecoilRoot>
         <App />
