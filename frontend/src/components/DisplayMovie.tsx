@@ -32,7 +32,7 @@ export default function DisplayMovie() {
 
   return (
     <div data-testid="testIDforAll">
-      <Link style={{color:"#8b6363"}} to="/"><ArrowBackIcon/></Link>
+      <button style={{color:"#8b6363"}} onClick={() => nav(-1)}><ArrowBackIcon/></button>
       <div
         style={{
           backgroundColor: "white",
