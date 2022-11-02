@@ -31,7 +31,7 @@ export default function DisplayMovie() {
   if (error) return <p>Error</p>;
 
   return (
-    <div data-testID="testIDforAll">
+    <div data-testid="testIDforAll">
       <Link style={{color:"#8b6363"}} to="/"><ArrowBackIcon/></Link>
       <div
         style={{
@@ -100,7 +100,7 @@ export default function DisplayMovie() {
           }}>
           {similarData?.movieListByIDs.map((data: any) => {
             return (
-              <div style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              <div key={Number(data.id)} style={{margin:"8px"}} onClick={() => nav("/movie/" + data.id)} tabIndex={0} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                 e.key === "Enter" && nav('/movie/' + data.id) 
               }}>
                 <DisplaySingleMovie
