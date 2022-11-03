@@ -50,7 +50,7 @@ describe("Test search bar", () => {
     it("Lord does not work for cast category", () => {
         cy.get('[id="CategoryField"]').click()
         cy.get('[data-testid="filterOption"]').eq(1).click()
-        cy.get('[data-testid="searchField"]').type("Lord")
+        cy.get('[data-testid="searchField"]').type("Lord of the rings")
         cy.get('[data-testid=singleMovieDiv]').should('have.length', 0)
     })
 
