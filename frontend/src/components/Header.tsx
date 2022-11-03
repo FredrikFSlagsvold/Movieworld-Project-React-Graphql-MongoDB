@@ -1,9 +1,11 @@
 import { ButtonGroup } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/global.css"
 
 
 export default function Header(){
+  const nav = useNavigate();
+
   function logout(){
     sessionStorage.setItem("isLoggedIn", "false")
     window.location.reload()
@@ -18,7 +20,8 @@ export default function Header(){
     <div className="topRight">
       <ButtonGroup variant="text" color="inherit" aria-label="text button group">
         <div style={{cursor: "pointer", padding:"10px", fontSize:"16px"}}> 
-          <Link data-testid="LikedMoviesLink" reloadDocument={true} to="/liked">LIKED MOVIES</Link> </div>
+          <Link data-testid="LikedMoviesLink"  onClick={()=> nav('/liked/')} reloadDocument={true} to="/liked">LIKED MOVIES</Link> 
+        </div>
         {sessionStorage.getItem("isLoggedIn") === "true" ?  <div style={{cursor: "pointer", padding:"10px", fontSize:"16px"}} onClick={logout}>LOGOUT</div> : <div className="link"><Link to="/login">Login</Link></div>}
       </ButtonGroup>
     </div>
